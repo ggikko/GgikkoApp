@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+
+    defaultConfig {
+        applicationId "ggikko.me.ggikkoapp"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Dagger - http://google.github.io/dagger/
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    compile 'com.google.dagger:dagger:2.0.2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // Lombok - https://github.com/rzwitserloot/lombok
+    provided 'org.projectlombok:lombok:1.12.6'
+    apt "org.projectlombok:lombok:1.12.6"
+
+    // view binding - https://github.com/JakeWharton/butterknife
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+
+    //android
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:support-annotations:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:cardview-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+
+    //retrofit - https://github.com/square/retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+
+    //glide - https://github.com/bumptech/glide
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+
+    //logging  - https://github.com/square/okhttp/tree/master/okhttp/src/main/java/okhttp3
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+
+    //rx
+    compile 'io.reactivex:rxandroid:1.1.0'
+
+    //test - https://github.com/junit-team/junit4
+    //     - https://github.com/mockito/mockito
+    //     - https://github.com/robolectric/robolectric
+    //     - https://github.com/aNNiMON/Lightweight-Stream-API
+    //     - https://github.com/square/assertj-android
+    testApt 'com.google.dagger:dagger-compiler:2.0.2'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.robolectric:robolectric:3.0-rc3'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
+    testCompile 'org.robolectric:shadows-multidex:3.0'
+    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
+    testCompile 'com.annimon:stream:1.1.0'
+    testCompile 'junit:junit:4.12'
+}
+
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:23.2.1'
+}
+
