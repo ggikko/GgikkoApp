@@ -11,8 +11,7 @@ import lombok.Getter;
  */
 public class ActivityInjector {
 
-    @Getter
-    private final ActivityComponent activityComponent;
+    @Getter private final ActivityComponent activityComponent;
 
     public ActivityInjector(ActivityComponent activityComponent) {
         this.activityComponent = activityComponent;
@@ -20,6 +19,5 @@ public class ActivityInjector {
 
     public void inject(InjectionActivity activity) {
         if (activity instanceof ImageActivity) activityComponent.inject((ImageActivity) activity);
-
     }
 }
