@@ -86,6 +86,7 @@ dependencies {
     testCompile 'com.squareup.assertj:assertj-android:1.1.1'
     testCompile 'com.annimon:stream:1.1.0'
     testCompile 'junit:junit:4.12'
+
 }
 
 configurations.all {
