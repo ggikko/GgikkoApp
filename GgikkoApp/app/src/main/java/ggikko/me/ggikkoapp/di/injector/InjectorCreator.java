@@ -12,7 +12,7 @@ import ggikko.me.ggikkoapp.di.module.ActivityModule;
 import ggikko.me.ggikkoapp.di.module.ApplicationModule;
 import ggikko.me.ggikkoapp.di.module.FragmentModule;
 import ggikko.me.ggikkoapp.di.module.network.NetworkModule;
-import ggikko.me.ggikkoapp.util.api.ConstantApi;
+import ggikko.me.ggikkoapp.util.api.NetworkConfig;
 
 /**
  * injector creator for application, activity, fragment
@@ -24,7 +24,7 @@ public class InjectorCreator {
     public ApplicationInjector makeApplicationInjector(GgikkoApplication application) {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(application))
-                .networkModule(new NetworkModule(ConstantApi.DEV_URL))
+                .networkModule(new NetworkModule(NetworkConfig.DEV_URL))
                 .build();
         return new ApplicationInjector(applicationComponent);
     }

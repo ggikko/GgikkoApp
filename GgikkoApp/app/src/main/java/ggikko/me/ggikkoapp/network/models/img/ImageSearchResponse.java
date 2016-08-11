@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by ggikko on 16. 8. 9..
  */
-public class ImageSerchResponse {
+public class ImageSearchResponse {
     @SerializedName("channel")
     @Expose
     public Channel channel;

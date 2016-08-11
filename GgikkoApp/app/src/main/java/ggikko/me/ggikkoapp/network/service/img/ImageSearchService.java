@@ -2,7 +2,7 @@ package ggikko.me.ggikkoapp.network.service.img;
 
 import java.util.Map;
 
-import ggikko.me.ggikkoapp.network.models.img.ImageSerchResponse;
+import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -12,7 +12,7 @@ import rx.Observable;
  */
 public interface ImageSearchService {
 
-    @GET("investment/schedules/")
-    Observable<ImageSerchResponse> searchImage(@QueryMap Map<String, String> options);
+    @GET("search/image")
+    Observable<ImageSearchResponse> searchImage(@QueryMap Map<String, String> options);
 
 }
