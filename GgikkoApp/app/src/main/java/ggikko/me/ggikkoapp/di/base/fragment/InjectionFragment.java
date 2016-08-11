@@ -25,7 +25,8 @@ public class InjectionFragment extends Fragment {
     /** inject */
     private void inject() {
         final GgikkoApplication application = ((GgikkoApplication) getActivity().getApplication());
-        fragmentInjector = application.getInjectorCreator().makeFragmentInjector(this);
+        fragmentInjector = application.getInjectorCreator().makeFragmentInjector(this, getContext());
         fragmentInjector.inject(this);
     }
+
 }

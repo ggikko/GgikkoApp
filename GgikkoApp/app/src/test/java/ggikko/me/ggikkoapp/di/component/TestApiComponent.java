@@ -7,10 +7,7 @@ package ggikko.me.ggikkoapp.di.component;
 import dagger.Component;
 import ggikko.me.ggikkoapp.data.service.img.TestImageSearchService;
 import ggikko.me.ggikkoapp.di.module.TestApiModule;
-import ggikko.me.ggikkoapp.di.module.network.ApiModule;
-import ggikko.me.ggikkoapp.di.qualifier.PerActivity;
 import ggikko.me.ggikkoapp.di.qualifier.TestPerActivity;
-import ggikko.me.ggikkoapp.ui.img.ImageActivity;
 
 /**
  * API Component

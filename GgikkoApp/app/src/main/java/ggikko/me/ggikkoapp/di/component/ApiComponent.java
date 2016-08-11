@@ -7,7 +7,7 @@ package ggikko.me.ggikkoapp.di.component;
 import dagger.Component;
 import ggikko.me.ggikkoapp.di.module.network.ApiModule;
 import ggikko.me.ggikkoapp.di.qualifier.PerActivity;
-import ggikko.me.ggikkoapp.ui.img.ImageActivity;
+import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
 
 /**
  * API Component
@@ -16,5 +16,5 @@ import ggikko.me.ggikkoapp.ui.img.ImageActivity;
 @Component(modules = ApiModule.class, dependencies = NetworkComponent.class)
 public interface ApiComponent {
 
-    void inject(ImageActivity imageActivity);
+    void inject(ImageSearchActivity imageActivity);
 }

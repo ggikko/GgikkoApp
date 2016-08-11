@@ -1,8 +1,11 @@
 package ggikko.me.ggikkoapp.ui.img.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,61 +15,88 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.fragment.InjectionFragment;
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.network.service.img.ImageSearchService;
-import ggikko.me.ggikkoapp.ui.img.listener.SearchInterface;
-import ggikko.me.ggikkoapp.ui.img.presenter.SearchFragmentPresenter;
+import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
+import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapter;
+import ggikko.me.ggikkoapp.ui.img.listener.SearchViewInterface;
+import ggikko.me.ggikkoapp.ui.img.presenter.SearchPresenter;
 import rx.Observable;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends InjectionFragment implements SearchInterface {
+public class SearchFragment extends InjectionFragment implements SearchViewInterface {
 
     private static SearchFragment mSearchFragment;
-    private SearchFragmentPresenter mSearchFragmentPresenter;
+    private SearchPresenter mSearchFragmentPresenter;
 
+    @BindView(R.id.rv_search) RecyclerView rv_search;
+    @BindString(R.string.api_key) String APIKEY;
+
+    //util
+    @Inject LinearLayoutManager mLinearLayoutManager;
+    @Inject Context mContext;
+
+    //service
     @Inject ImageSearchService mImageSearchService;
 
+    //adapter
+    @Inject SearchAdapter mSearchAdapter;
+    @Inject SearchPresenter mSearchPresenter;
+
     public static SearchFragment getInstance(){
-        if(mSearchFragment == null){
-            return new SearchFragment();
-        }
+        if(mSearchFragment == null) return new SearchFragment();
         return mSearchFragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-        return rootView;
-    }
+        ButterKnife.bind(this, rootView);
 
-    private void init(){
-        mSearchFragmentPresenter = new SearchFragmentPresenter();
+        rv_search.setAdapter(mSearchAdapter);
+        rv_search.setLayoutManager(mLinearLayoutManager);
+
+        return rootView;
     }
 
     @Override
     public void onCompleted() {
-
+        ((ImageSearchActivity)mContext).hideLoading();
     }
 
     @Override
     public void onError(String errorString) {
         //TODO : error handling
+        ((ImageSearchActivity)mContext).hideLoading();
     }
 
     @Override
-    public void onNext(ImageSearchResponse imageSearchResponse) {
-
-    }
-
-    @Override
-    public Observable<ImageSearchResponse> searchImage() {
+    public Observable<ImageSearchResponse> searchImage(String searchWord) {
+        //TODO : need paging
         Map<String, String> data = new LinkedHashMap<>();
         data.put("", "");
+        data.put("apiKey", APIKEY);
+        data.put("q", searchWord);
+        data.put("result", "10");
+        data.put("pageno", "1");
+        data.put("output", "json");
         return mImageSearchService.searchImage(data);
+    }
+
+    public void sendSearchWord(String searchWord) {
+        ((ImageSearchActivity)mContext).showLoading();
+        mSearchPresenter.requestSearchImage(searchWord);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
