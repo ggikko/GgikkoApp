@@ -1,11 +1,9 @@
 package ggikko.me.ggikkoapp.ui.img;
 
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -13,9 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,10 +18,10 @@ import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SectionsPagerAdapter;
 
-public class ImageActivity extends InjectionActivity {
+public class ImageSearchActivity extends InjectionActivity {
 
-    private SearchView searchView;
-    private MenuItem menuItem;
+    private SearchView mSearchView;
+    private MenuItem mMenuItem;
     private SectionsPagerAdapter sectionsPagerAdapter;
 
     @BindView(R.id.activity_image_toolbar) Toolbar activity_image_toolbar;
@@ -40,10 +35,8 @@ public class ImageActivity extends InjectionActivity {
     @Override
     protected void onCreate() {
         unbinder = ButterKnife.bind(this);
-
         //toolbar
         toolbarSetting();
-
         //tab pager
         setupTabs();
     }
@@ -73,9 +66,9 @@ public class ImageActivity extends InjectionActivity {
             @Override
             public void onPageSelected(int position) {
                 if(position ==0) {
-                    sectionsPagerAdapter.getMArchiveFragment();
+                    sectionsPagerAdapter.getArchiveFragment();
                 }else{
-                    sectionsPagerAdapter.getMSearchFragment();
+                    sectionsPagerAdapter.getSearchFragment();
                 }
             }
 
@@ -127,20 +120,18 @@ public class ImageActivity extends InjectionActivity {
         return imageView;
     }
 
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
-        menuItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setQueryHint("Please type search word..");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
+        mSearchView.setQueryHint("Please type search word..");
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                toastText("search!", Toast.LENGTH_SHORT);
-                return false;
+                sectionsPagerAdapter.getSearchFragment().sendSearchWord(query);
+                mSearchView.post(()-> mSearchView.clearFocus());
+                return true;
             }
 
             @Override

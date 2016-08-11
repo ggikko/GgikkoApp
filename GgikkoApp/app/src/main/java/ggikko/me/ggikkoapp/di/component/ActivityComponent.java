@@ -6,7 +6,9 @@ import ggikko.me.ggikkoapp.di.module.ActivityModule;
 import ggikko.me.ggikkoapp.di.module.FragmentModule;
 import ggikko.me.ggikkoapp.di.module.network.ApiModule;
 import ggikko.me.ggikkoapp.di.qualifier.PerActivity;
-import ggikko.me.ggikkoapp.ui.img.ImageActivity;
+import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
+import ggikko.me.ggikkoapp.ui.img.di.SearchComponent;
+import ggikko.me.ggikkoapp.ui.img.di.SearchModule;
 
 /**
  * activity component
@@ -15,8 +17,9 @@ import ggikko.me.ggikkoapp.ui.img.ImageActivity;
 @Subcomponent(modules = {ActivityModule.class, ApiModule.class})
 public interface ActivityComponent {
 
-    FragmentComponent plusFragmentComponent(FragmentModule module);
+    FragmentComponent plusFragmentComponent(FragmentModule fragmentModule);
+    SearchComponent plusSearchComponent(SearchModule searchModule);
 
-    void inject(ImageActivity imageActivity);
+    void inject(ImageSearchActivity imageActivity);
 
 }

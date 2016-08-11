@@ -1,6 +1,8 @@
 package ggikko.me.ggikkoapp.di.injector;
 
 
+import android.content.Context;
+
 import ggikko.me.ggikkoapp.GgikkoApplication;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.di.base.fragment.InjectionFragment;
@@ -12,6 +14,9 @@ import ggikko.me.ggikkoapp.di.module.ActivityModule;
 import ggikko.me.ggikkoapp.di.module.ApplicationModule;
 import ggikko.me.ggikkoapp.di.module.FragmentModule;
 import ggikko.me.ggikkoapp.di.module.network.NetworkModule;
+import ggikko.me.ggikkoapp.ui.img.di.SearchComponent;
+import ggikko.me.ggikkoapp.ui.img.di.SearchModule;
+import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 import ggikko.me.ggikkoapp.util.api.NetworkConfig;
 
 /**
@@ -34,9 +39,13 @@ public class InjectorCreator {
         return new ActivityInjector(activityComponent);
     }
 
-    public FragmentInjector makeFragmentInjector(InjectionFragment fragment) {
+    public FragmentInjector makeFragmentInjector(InjectionFragment fragment, Context context) {
         final ActivityInjector activityInjector = ((InjectionActivity) fragment.getActivity()).getActivityInjector();
         final FragmentComponent fragmentComponent = activityInjector.getActivityComponent().plusFragmentComponent(new FragmentModule(fragment));
+        if(fragment instanceof SearchFragment) {
+            final SearchComponent searchComponent = activityInjector.getActivityComponent().plusSearchComponent(new SearchModule((SearchFragment) fragment, fragment.getContext()));
+            return new FragmentInjector(searchComponent);
+        }
         return new FragmentInjector(fragmentComponent);
     }
 }

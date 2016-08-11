@@ -32,7 +32,7 @@ import butterknife.Unbinder;
 import ggikko.me.ggikkoapp.GgikkoApplication;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.injector.ActivityInjector;
-import ggikko.me.ggikkoapp.ui.img.ImageActivity;
+import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
 import lombok.Getter;
 
 /**
@@ -110,10 +110,10 @@ public abstract class InjectionActivity extends AppCompatActivity {
      */
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if(unbinder!=null) unbinder.unbind();
         if(baseUnbider!=null) baseUnbider.unbind();
         unregisterReceiver(networkReceiver);
+        super.onDestroy();
     }
 
     /**
@@ -320,7 +320,7 @@ public abstract class InjectionActivity extends AppCompatActivity {
      * show notification
      */
     public void popNotification(){
-        Intent intent = new Intent(this, ImageActivity.class);
+        Intent intent = new Intent(this, ImageSearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 

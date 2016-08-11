@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     tools:context="ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#ffffff"
-        android:text="Search" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

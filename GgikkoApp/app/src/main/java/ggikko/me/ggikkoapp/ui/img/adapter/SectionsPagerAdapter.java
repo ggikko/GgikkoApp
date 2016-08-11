@@ -12,10 +12,10 @@ import lombok.Getter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Getter
-    private SearchFragment mSearchFragment;
+    private SearchFragment searchFragment;
 
     @Getter
-    private ArchiveFragment mArchiveFragment;
+    private ArchiveFragment archiveFragment;
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,11 +24,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            mSearchFragment = SearchFragment.getInstance();
-            return mSearchFragment;
+            searchFragment = SearchFragment.getInstance();
+            return searchFragment;
         } else {
-            mArchiveFragment = ArchiveFragment.getInstance();
-            return mArchiveFragment ;
+            archiveFragment = ArchiveFragment.getInstance();
+            return archiveFragment ;
         }
     }
 

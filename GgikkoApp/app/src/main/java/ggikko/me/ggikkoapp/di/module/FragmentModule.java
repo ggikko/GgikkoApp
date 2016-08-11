@@ -1,6 +1,7 @@
 package ggikko.me.ggikkoapp.di.module;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -14,6 +15,7 @@ import ggikko.me.ggikkoapp.di.qualifier.PerFragment;
 @Module
 public class FragmentModule {
     private final Fragment fragment;
+    private Context mContext;
 
     public FragmentModule(Fragment fragment) {
         this.fragment = fragment;

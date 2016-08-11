@@ -59,9 +59,10 @@ public class NetworkModule {
      */
     @Provides
     @Singleton
-    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, RxJavaCallAdapterFactory rxJavaCallAdapterFactory) {
+    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, RxJavaCallAdapterFactory rxJavaCallAdapterFactory, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
+                .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .build();
@@ -77,12 +78,12 @@ public class NetworkModule {
 
     /**
      * Okhttp logging intercepter
-     * @param sharedPreferences
+     * @param
      * @return
      */
     @Provides
     @Singleton
-    public OkHttpClient providesOkHttpClient(SharedPreferences sharedPreferences) {
+    public OkHttpClient providesOkHttpClient() {
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 
         if (AppLog.SHOULD_LOG) {

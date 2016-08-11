@@ -3,7 +3,7 @@ package ggikko.me.ggikkoapp.di.injector;
 
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.di.component.ActivityComponent;
-import ggikko.me.ggikkoapp.ui.img.ImageActivity;
+import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
 import lombok.Getter;
 
 /**
@@ -18,6 +18,6 @@ public class ActivityInjector {
     }
 
     public void inject(InjectionActivity activity) {
-        if (activity instanceof ImageActivity) activityComponent.inject((ImageActivity) activity);
+        if (activity instanceof ImageSearchActivity) activityComponent.inject((ImageSearchActivity) activity);
     }
 }

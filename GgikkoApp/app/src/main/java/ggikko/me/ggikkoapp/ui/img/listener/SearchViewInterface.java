@@ -6,10 +6,9 @@ import rx.Observable;
 /**
  * Created by admin on 16. 5. 30..
  */
-public interface SearchInterface {
+public interface SearchViewInterface {
 
     void onCompleted();
     void onError(String errorString);
-    void onNext(ImageSearchResponse imageSearchResponse);
-    Observable<ImageSearchResponse> searchImage();
+    Observable<ImageSearchResponse> searchImage(String searchWord);
 }

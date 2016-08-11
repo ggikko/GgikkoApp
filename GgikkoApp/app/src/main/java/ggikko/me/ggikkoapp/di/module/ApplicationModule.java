@@ -25,16 +25,6 @@ public class ApplicationModule {
     }
 
     /**
-     * Provide App Context
-     * @return
-     */
-    @Provides
-    @Singleton
-    Context provideApplicationContext() {
-        return application;
-    }
-
-    /**
      * Provice resource
      * @return
      */
