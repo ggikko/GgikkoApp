@@ -13,11 +13,13 @@ import ggikko.me.ggikkoapp.di.component.FragmentComponent;
 import ggikko.me.ggikkoapp.di.module.ActivityModule;
 import ggikko.me.ggikkoapp.di.module.ApplicationModule;
 import ggikko.me.ggikkoapp.di.module.FragmentModule;
+import ggikko.me.ggikkoapp.di.module.RepositoryModule;
 import ggikko.me.ggikkoapp.di.module.network.NetworkModule;
 import ggikko.me.ggikkoapp.ui.img.di.SearchComponent;
 import ggikko.me.ggikkoapp.ui.img.di.SearchModule;
 import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 import ggikko.me.ggikkoapp.util.api.NetworkConfig;
+import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 
 /**
  * injector creator for application, activity, fragment
@@ -30,6 +32,7 @@ public class InjectorCreator {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(application))
                 .networkModule(new NetworkModule(NetworkConfig.DEV_URL))
+                .repositoryModule(new RepositoryModule(application))
                 .build();
         return new ApplicationInjector(applicationComponent);
     }
