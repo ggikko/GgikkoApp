@@ -2,13 +2,15 @@ package ggikko.me.ggikkoapp.ui.img.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.swipe.SwipeLayout;
@@ -57,6 +59,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.search_swipe_wrapper.setShowMode(SwipeLayout.ShowMode.LayDown);
         holder.search_swipe_wrapper.addDrag(SwipeLayout.DragEdge.Right, holder.search_behind_wrapper);
 
+        holder.search_title.setText("Title :\n" + fromHtml(item.title));
+        holder.search_height.setText("Height : " + item.height);
+        holder.search_width.setText("Width : " + item.width);
+
         holder.search_surface_wrapper.setOnClickListener(view->{
             if (holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open) {
                 holder.search_swipe_wrapper.close(true);
@@ -66,11 +72,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         });
 
         holder.search_behind_wrapper.setOnClickListener(view ->{
-            Log.e("ggikko", "remove position : " + position);
             mDatabaseRealm.add(item);
             items.remove(item);
-            notifyItemRemoved(position);
-            holder.itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
+            notifySpecificItemRemoved(holder.itemView,position);
         });
     }
 
@@ -85,8 +89,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void setOnRvItemClickListener(OnRvItemClickListener onRvItemClickListener) {
-        this.mOnRvItemClickListener = onRvItemClickListener;
+    public void notifySpecificItemRemoved(View itemView, int position) {
+        notifyItemRemoved(position);
+        itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
     }
 
     @Override
@@ -106,9 +111,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         @BindView(R.id.search_behind_wrapper) RelativeLayout search_behind_wrapper;
         @BindView(R.id.search_surface_wrapper) LinearLayout search_surface_wrapper;
 
+        @BindView(R.id.search_title) TextView search_title;
+        @BindView(R.id.search_height) TextView search_height;
+        @BindView(R.id.search_width) TextView search_width;
+
         public SearchViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public static Spanned fromHtml(String source) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            // noinspection deprecation
+            return Html.fromHtml(source);
+        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
     }
 }
