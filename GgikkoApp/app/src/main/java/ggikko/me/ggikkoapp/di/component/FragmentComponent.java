@@ -14,6 +14,4 @@ import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
 
-    void inject(ArchiveFragment archiveFragment);
-
 }

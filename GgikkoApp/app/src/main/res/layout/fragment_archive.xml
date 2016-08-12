@@ -1,13 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ggikko.me.ggikkoapp.ui.img.fragment.ArchiveFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_archive"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#ffffff"
-        android:text="Archive" />
+        android:layout_height="match_parent" />
 
-</FrameLayout>
+</RelativeLayout>

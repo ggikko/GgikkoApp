@@ -7,11 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
@@ -26,6 +28,7 @@ public class ImageSearchActivity extends InjectionActivity {
 
     @BindView(R.id.activity_image_toolbar) Toolbar activity_image_toolbar;
     @BindView(R.id.activity_image_tabs) TabLayout activity_image_tabs;
+    @BindString(R.string.app_name) String app_name;
 
     @Override
     protected int getLayoutRes() {
@@ -45,7 +48,7 @@ public class ImageSearchActivity extends InjectionActivity {
      * toolbar setting
      */
     private void toolbarSetting() {
-        activity_image_toolbar.setTitle("GGIKKO");
+        activity_image_toolbar.setTitle(app_name);
         setSupportActionBar(activity_image_toolbar);
     }
 
@@ -66,9 +69,9 @@ public class ImageSearchActivity extends InjectionActivity {
             @Override
             public void onPageSelected(int position) {
                 if(position ==0) {
-                    sectionsPagerAdapter.getArchiveFragment();
-                }else{
                     sectionsPagerAdapter.getSearchFragment();
+                }else{
+                    sectionsPagerAdapter.getArchiveFragment().refresh();
                 }
             }
 
@@ -79,9 +82,9 @@ public class ImageSearchActivity extends InjectionActivity {
         });
 
         activity_image_tabs.setupWithViewPager(viewPager);
-        activity_image_tabs.getTabAt(0).setCustomView(getCustomIcon(R.drawable.ic_search));
+        activity_image_tabs.getTabAt(0).setCustomView(getCustomIcon(R.drawable.ic_download));
         activity_image_tabs.getTabAt(0).setText("");
-        activity_image_tabs.getTabAt(1).setCustomView(getCustomIcon(R.drawable.ic_search, 100));
+        activity_image_tabs.getTabAt(1).setCustomView(getCustomIcon(R.drawable.ic_save, 100));
         activity_image_tabs.getTabAt(1).setText("");
 
         activity_image_tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
