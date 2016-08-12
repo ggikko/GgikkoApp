@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +7,18 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/search_empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="8dp"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:textSize="20dp"
+        android:text="Please click search icon\nand.. enjoin it!"/>
+
+</RelativeLayout>

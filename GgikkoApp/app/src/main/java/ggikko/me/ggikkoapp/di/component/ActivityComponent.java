@@ -7,6 +7,8 @@ import ggikko.me.ggikkoapp.di.module.FragmentModule;
 import ggikko.me.ggikkoapp.di.module.network.ApiModule;
 import ggikko.me.ggikkoapp.di.qualifier.PerActivity;
 import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
+import ggikko.me.ggikkoapp.ui.img.di.ArchiveComponent;
+import ggikko.me.ggikkoapp.ui.img.di.ArchiveModule;
 import ggikko.me.ggikkoapp.ui.img.di.SearchComponent;
 import ggikko.me.ggikkoapp.ui.img.di.SearchModule;
 
@@ -19,6 +21,7 @@ public interface ActivityComponent {
 
     FragmentComponent plusFragmentComponent(FragmentModule fragmentModule);
     SearchComponent plusSearchComponent(SearchModule searchModule);
+    ArchiveComponent plusArchiveComponent(ArchiveModule archiveModule);
 
     void inject(ImageSearchActivity imageActivity);
 

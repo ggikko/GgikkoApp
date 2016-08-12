@@ -27,28 +27,28 @@ import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 /**
  * Created by ggikko on 16. 8. 11..
  */
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>
-        implements SearchAdapterDataModel, SearchAdapterDataView {
+public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveViewHolder>
+        implements ArchiveAdapterDataView {
 
     private Context mContext;
     private List<Item> items;
     private OnRvItemClickListener mOnRvItemClickListener;
     private DatabaseRealm mDatabaseRealm;
 
-    public SearchAdapter(Context context, DatabaseRealm databaseRealm) {
+    public ArchiveAdapter(Context context, DatabaseRealm databaseRealm) {
         this.mContext = context;
         this.mDatabaseRealm = databaseRealm;
         this.items = new ArrayList<>();
     }
 
     @Override
-    public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_row, parent, false);
-        return new SearchViewHolder(view);
+    public ArchiveViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_archive_row, parent, false);
+        return new ArchiveViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SearchViewHolder holder, int position) {
+    public void onBindViewHolder(ArchiveViewHolder holder, int position) {
         final Item item = items.get(position);
         holder.search_swipe_wrapper.setSwipeEnabled(false);
 
@@ -58,20 +58,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.search_swipe_wrapper.addDrag(SwipeLayout.DragEdge.Right, holder.search_behind_wrapper);
 
         holder.search_surface_wrapper.setOnClickListener(view->{
-            if (holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open) {
+            if (isSwipeLayoutOpen(holder)) {
                 holder.search_swipe_wrapper.close(true);
             } else {
                 holder.search_swipe_wrapper.open(true);
             }
         });
 
-        holder.search_behind_wrapper.setOnClickListener(view ->{
-            Log.e("ggikko", "remove position : " + position);
-            mDatabaseRealm.add(item);
-            items.remove(item);
-            notifyItemRemoved(position);
-            holder.itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
-        });
+        holder.search_behind_wrapper.setOnClickListener(view ->mDatabaseRealm.deleteFromArchive(holder.itemView, position, this));
+    }
+
+    private boolean isSwipeLayoutOpen(ArchiveViewHolder holder) {
+        return holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open;
     }
 
     @Override
@@ -81,7 +79,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void refresh() {
+        List<Item> savedItems = mDatabaseRealm.findAll(Item.class);
+        items = savedItems;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifySpecificItemRemoved(View itemView, int position) {
+        notifyItemRemoved(position);
+        itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
     }
 
     @Override
@@ -89,24 +95,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         this.mOnRvItemClickListener = onRvItemClickListener;
     }
 
-    @Override
-    public void add(ImageSearchResponse imageSearchResponse) {
-        items.addAll(imageSearchResponse.channel.item);
-    }
-
-    @Override
-    public void clear() {
-        items.clear();
-    }
-
-    static class SearchViewHolder extends RecyclerView.ViewHolder {
+    static class ArchiveViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_item_search_result_thumb) ImageView ivThumbnail;
         @BindView(R.id.search_swipe_wrapper) SwipeLayout search_swipe_wrapper;
         @BindView(R.id.search_behind_wrapper) RelativeLayout search_behind_wrapper;
         @BindView(R.id.search_surface_wrapper) LinearLayout search_surface_wrapper;
 
-        public SearchViewHolder(View itemView) {
+        public ArchiveViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

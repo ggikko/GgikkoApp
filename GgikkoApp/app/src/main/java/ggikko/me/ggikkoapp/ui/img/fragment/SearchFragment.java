@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,6 +27,7 @@ import ggikko.me.ggikkoapp.ui.img.ImageSearchActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapter;
 import ggikko.me.ggikkoapp.ui.img.listener.SearchViewInterface;
 import ggikko.me.ggikkoapp.ui.img.presenter.SearchPresenter;
+import ggikko.me.ggikkoapp.util.animator.SlideInRightAnimator;
 import rx.Observable;
 
 /**
@@ -34,9 +36,9 @@ import rx.Observable;
 public class SearchFragment extends InjectionFragment implements SearchViewInterface {
 
     private static SearchFragment mSearchFragment;
-    private SearchPresenter mSearchFragmentPresenter;
 
     @BindView(R.id.rv_search) RecyclerView rv_search;
+    @BindView(R.id.search_empty_text) TextView search_empty_text;
     @BindString(R.string.api_key) String APIKEY;
 
     //util
@@ -57,10 +59,13 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, rootView);
 
         rv_search.setAdapter(mSearchAdapter);
+        rv_search.setItemAnimator(new SlideInRightAnimator());
+        rv_search.getItemAnimator().setRemoveDuration(200);
         rv_search.setLayoutManager(mLinearLayoutManager);
 
         return rootView;
@@ -79,7 +84,7 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
 
     @Override
     public Observable<ImageSearchResponse> searchImage(String searchWord) {
-        //TODO : need paging
+        //TODO : paging
         Map<String, String> data = new LinkedHashMap<>();
         data.put("", "");
         data.put("apiKey", APIKEY);
@@ -91,8 +96,16 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
     }
 
     public void sendSearchWord(String searchWord) {
+        if(isViewVisible(search_empty_text))search_empty_text.setVisibility(View.GONE);
+        if(!isViewVisible(rv_search))rv_search.setVisibility(View.VISIBLE);
+
         ((ImageSearchActivity)mContext).showLoading();
         mSearchPresenter.requestSearchImage(searchWord);
+    }
+
+    private boolean isViewVisible(View view){
+        if(view.getVisibility() == View.VISIBLE) return true;
+        return false;
     }
 
     @Override

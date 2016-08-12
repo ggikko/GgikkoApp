@@ -15,8 +15,11 @@ import ggikko.me.ggikkoapp.di.module.ApplicationModule;
 import ggikko.me.ggikkoapp.di.module.FragmentModule;
 import ggikko.me.ggikkoapp.di.module.RepositoryModule;
 import ggikko.me.ggikkoapp.di.module.network.NetworkModule;
+import ggikko.me.ggikkoapp.ui.img.di.ArchiveComponent;
+import ggikko.me.ggikkoapp.ui.img.di.ArchiveModule;
 import ggikko.me.ggikkoapp.ui.img.di.SearchComponent;
 import ggikko.me.ggikkoapp.ui.img.di.SearchModule;
+import ggikko.me.ggikkoapp.ui.img.fragment.ArchiveFragment;
 import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 import ggikko.me.ggikkoapp.util.api.NetworkConfig;
 import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
@@ -44,10 +47,20 @@ public class InjectorCreator {
 
     public FragmentInjector makeFragmentInjector(InjectionFragment fragment, Context context) {
         final ActivityInjector activityInjector = ((InjectionActivity) fragment.getActivity()).getActivityInjector();
+
+        //common fragment
         final FragmentComponent fragmentComponent = activityInjector.getActivityComponent().plusFragmentComponent(new FragmentModule(fragment));
+
+        //search
         if(fragment instanceof SearchFragment) {
             final SearchComponent searchComponent = activityInjector.getActivityComponent().plusSearchComponent(new SearchModule((SearchFragment) fragment, fragment.getContext()));
             return new FragmentInjector(searchComponent);
+        }
+
+        //archive
+        if(fragment instanceof ArchiveFragment){
+            final ArchiveComponent archiveComponent = activityInjector.getActivityComponent().plusArchiveComponent(new ArchiveModule(fragment.getContext()));
+            return new FragmentInjector(archiveComponent);
         }
         return new FragmentInjector(fragmentComponent);
     }
