@@ -71,6 +71,9 @@ dependencies {
     //rx
     compile 'io.reactivex:rxandroid:1.1.0'
 
+    //font
+    compile 'com.tsengvn:Typekit:1.0.0'
+
     //swipelayout
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
 

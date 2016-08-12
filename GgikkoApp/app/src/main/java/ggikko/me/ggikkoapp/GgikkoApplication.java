@@ -3,6 +3,8 @@ package ggikko.me.ggikkoapp;
 import android.app.Application;
 import android.content.Context;
 
+import com.tsengvn.typekit.Typekit;
+
 import javax.inject.Inject;
 
 import ggikko.me.ggikkoapp.di.component.ApplicationComponent;
@@ -34,6 +36,7 @@ public class GgikkoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Typekit.getInstance().addNormal(Typekit.createFromAsset(this, "Roboto-Medium.ttf"));
         setContext(this);
         injectorCreator = makeInjectorCreator();
         inject();

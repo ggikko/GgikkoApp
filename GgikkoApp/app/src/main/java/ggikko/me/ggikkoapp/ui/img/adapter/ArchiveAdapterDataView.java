@@ -11,6 +11,5 @@ public interface ArchiveAdapterDataView {
 
     void refresh();
     void notifySpecificItemRemoved(View itemView, int position);
-    void setOnRvItemClickListener(OnRvItemClickListener onRvItemClickListener);
 }
 

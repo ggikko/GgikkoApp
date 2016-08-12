@@ -1,5 +1,7 @@
 package ggikko.me.ggikkoapp.ui.img.adapter;
 
+import android.view.View;
+
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
 
@@ -9,6 +11,6 @@ import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
 public interface SearchAdapterDataView {
 
     void refresh();
-    void setOnRvItemClickListener(OnRvItemClickListener onRvItemClickListener);
+    void notifySpecificItemRemoved(View itemView, int position);
 }
 
