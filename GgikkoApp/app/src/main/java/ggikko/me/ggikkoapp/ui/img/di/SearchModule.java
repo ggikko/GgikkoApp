@@ -12,6 +12,7 @@ import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapterDataModel;
 import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapterDataView;
 import ggikko.me.ggikkoapp.ui.img.listener.SearchViewInterface;
 import ggikko.me.ggikkoapp.ui.img.presenter.SearchPresenter;
+import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 
 /**
  * Created by ggikko on 16. 8. 11..
@@ -30,8 +31,8 @@ public class SearchModule {
 
     @Provides
     @PerFragment
-    SearchAdapter provideSearchAdapter(){
-        return new SearchAdapter(mContext);
+    SearchAdapter provideSearchAdapter(DatabaseRealm databaseRealm){
+        return new SearchAdapter(mContext, databaseRealm);
     }
 
     @Provides
