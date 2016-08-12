@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_wipe_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:orientation="horizontal">
+    android:layout_height="120dp">
 
-    <ImageView
-        android:id="@+id/iv_item_search_result_thumb"
-        android:layout_width="120dp"
+    <!-- behind -->
+    <RelativeLayout
+        android:id="@+id/search_behind_wrapper"
+        android:layout_width="60dp"
         android:layout_height="120dp"
-        android:layout_centerInParent="true"/>
+        android:background="@color/red_D32F2F">
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_save"/>
+
+    </RelativeLayout>
+
+
+    <!-- surface -->
+    <LinearLayout
+        android:id="@+id/search_surface_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/iv_item_search_result_thumb"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+
+        <TextView
+            android:layout_toRightOf="@+id/iv_item_search_result_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@color/backgroundColor"
+            android:textColor="@color/white"
+            android:text="hello"/>
+
+    </LinearLayout>
+
+</com.daimajia.swipe.SwipeLayout>

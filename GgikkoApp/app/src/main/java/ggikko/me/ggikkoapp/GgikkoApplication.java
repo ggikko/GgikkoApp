@@ -3,9 +3,12 @@ package ggikko.me.ggikkoapp;
 import android.app.Application;
 import android.content.Context;
 
+import javax.inject.Inject;
+
 import ggikko.me.ggikkoapp.di.component.ApplicationComponent;
 import ggikko.me.ggikkoapp.di.injector.ApplicationInjector;
 import ggikko.me.ggikkoapp.di.injector.InjectorCreator;
+import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 import lombok.Getter;
 
 /**
@@ -22,6 +25,8 @@ public class GgikkoApplication extends Application {
 
     @Getter
     ApplicationComponent applicationComponent;
+
+    @Inject DatabaseRealm databaseRealm;
 
     @Getter
     protected InjectorCreator injectorCreator;
@@ -42,5 +47,11 @@ public class GgikkoApplication extends Application {
         final ApplicationInjector applicationInjector = injectorCreator.makeApplicationInjector(this);
         applicationComponent = applicationInjector.getApplicationComponent();
         applicationInjector.inject(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        databaseRealm.close();
+        super.onTerminate();
     }
 }
