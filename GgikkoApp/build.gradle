@@ -4,7 +4,7 @@ ext {
     supportLibraryVersion = '24.1.1'
     retrofit2Version = '2.0.2'
     butterKnifeVersion = '8.2.1'
-    dagger2Version = '2.1'
+    dagger2Version = '2.5'
     glassfishVersion = '10.0-b28'
     lombokVersion = "1.12.6"
     glideVersion = '3.7.0'
@@ -28,7 +28,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath "io.realm:realm-gradle-plugin:1.0.0"
+        classpath "io.realm:realm-gradle-plugin:1.1.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

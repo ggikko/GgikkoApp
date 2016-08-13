@@ -1,9 +1,5 @@
 package ggikko.me.ggikkoapp.util.animator;
 
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
-import android.view.animation.Interpolator;
-
 /**
  * Copyright (C) 2015 Wasabeef
  *
@@ -20,24 +16,26 @@ import android.view.animation.Interpolator;
  * limitations under the License.
  */
 
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
+import android.view.animation.Interpolator;
+
 /**
- * Created by ggikko on 16. 8. 12..
+ * Created by admin on 16. 8. 13..
  */
+public class ScaleInAnimator extends BaseItemAnimator {
 
-public class LandingAnimator extends BaseItemAnimator {
-
-    public LandingAnimator() {
+    public ScaleInAnimator() {
     }
 
-    public LandingAnimator(Interpolator interpolator) {
+    public ScaleInAnimator(Interpolator interpolator) {
         mInterpolator = interpolator;
     }
 
     @Override protected void animateRemoveImpl(final RecyclerView.ViewHolder holder) {
         ViewCompat.animate(holder.itemView)
-                .alpha(0)
-                .scaleX(1.5f)
-                .scaleY(1.5f)
+                .scaleX(0)
+                .scaleY(0)
                 .setDuration(getRemoveDuration())
                 .setInterpolator(mInterpolator)
                 .setListener(new DefaultRemoveVpaListener(holder))
@@ -46,14 +44,12 @@ public class LandingAnimator extends BaseItemAnimator {
     }
 
     @Override protected void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
-        ViewCompat.setAlpha(holder.itemView, 0);
-        ViewCompat.setScaleX(holder.itemView, 1.5f);
-        ViewCompat.setScaleY(holder.itemView, 1.5f);
+        ViewCompat.setScaleX(holder.itemView, 0);
+        ViewCompat.setScaleY(holder.itemView, 0);
     }
 
     @Override protected void animateAddImpl(final RecyclerView.ViewHolder holder) {
         ViewCompat.animate(holder.itemView)
-                .alpha(1)
                 .scaleX(1)
                 .scaleY(1)
                 .setDuration(getAddDuration())

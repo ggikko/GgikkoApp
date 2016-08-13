@@ -29,6 +29,7 @@ public class ImageSearchActivity extends InjectionActivity {
     @BindView(R.id.activity_image_toolbar) Toolbar activity_image_toolbar;
     @BindView(R.id.activity_image_tabs) TabLayout activity_image_tabs;
     @BindString(R.string.app_name) String app_name;
+    @BindString(R.string.searchview_hint) String searchview_hint;
 
     @Override
     protected int getLayoutRes() {
@@ -128,7 +129,7 @@ public class ImageSearchActivity extends InjectionActivity {
         getMenuInflater().inflate(R.menu.search, menu);
         mMenuItem = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
-        mSearchView.setQueryHint("Please type search word..");
+        mSearchView.setQueryHint(searchview_hint);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

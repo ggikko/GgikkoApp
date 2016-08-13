@@ -3,5 +3,6 @@
     <string name="api_key">44522a8595b512212df19f7c03742580</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searchview_hint">Please type search word..</string>
+    <string name="searchview_helper">Please click search icon and..\n Enjoin it!  :)</string>
 </resources>

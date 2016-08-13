@@ -49,14 +49,14 @@ public abstract class BasePresenter implements Presenter {
         unSubscribeAll();
     }
 
-    protected void unSubscribeAll() {
+    public void unSubscribeAll() {
         if (compositeSubscription != null) {
             compositeSubscription.unsubscribe();
             compositeSubscription.clear();
         }
     }
 
-    protected <T> void subscribe(Observable<T> observable, Observer<T> observer) {
+    public <T> void subscribe(Observable<T> observable, Observer<T> observer) {
         Subscription subscription = observable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

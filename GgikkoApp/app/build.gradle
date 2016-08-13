@@ -33,6 +33,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:23.2.1"
+    }
+
+
 }
 
 dependencies {
@@ -86,24 +92,22 @@ dependencies {
     //     - https://github.com/crittercism/dexmaker - for android test
     //     - https://github.com/aNNiMON/Lightweight-Stream-API
     //     - https://github.com/square/assertj-android
-    // Android JUnit Runner
-    // JUnit4 Rules
 
+    // JUnit4 Rules
     testApt "com.google.dagger:dagger-compiler:${dagger2Version}"
+    testCompile "com.annimon:stream:${streamapiVersion}"
+    testCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
+    testCompile 'junit:junit:4.12'
+
+    // Android JUnit Runner
+    androidTestCompile 'com.android.support:support-annotations:24.0.0'
     androidTestCompile "com.android.support.test:runner:${testRunnerVersion}"
     androidTestCompile "com.android.support.test:rules:${testRunnerVersion}"
     androidTestCompile "com.android.support.test.espresso:espresso-core:${espressoVersion}"
-    testCompile "junit:junit:4.12"
-    testCompile "com.crittercism.dexmaker:dexmaker:${dexmakerVersion}"
-    testCompile "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}"
-    testCompile "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}"
-    testCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
-    testCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
-    testCompile "com.annimon:stream:${streamapiVersion}"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker:${dexmakerVersion}"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}"
+    androidTestCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
+
 
 }
-
-configurations.all {
-    resolutionStrategy.force "com.android.support:support-annotations:23.2.1"
-}
-

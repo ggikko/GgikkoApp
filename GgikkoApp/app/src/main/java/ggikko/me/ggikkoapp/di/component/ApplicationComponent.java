@@ -20,5 +20,5 @@ public interface ApplicationComponent {
 
     ActivityComponent plusActivityComponent(ActivityModule activityModule);
 
-    void inject(GgikkoApplication application);
+    void inject(GgikkoApplication ggikkoApplication);
 }

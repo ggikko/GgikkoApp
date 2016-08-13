@@ -1,10 +1,10 @@
-package ggikko.me.ggikkoapp.ui.di.module;
+package ggikko.me.ggikkoapp.di.module;
 
 import dagger.Module;
 import dagger.Provides;
+import ggikko.me.ggikkoapp.config.TestNetworkConfig;
+import ggikko.me.ggikkoapp.di.qualifier.TestPerActivity;
 import ggikko.me.ggikkoapp.network.service.img.ImageSearchService;
-import ggikko.me.ggikkoapp.ui.config.TestNetworkConfig;
-import ggikko.me.ggikkoapp.ui.di.qualifier.TestPerActivity;
 import retrofit2.Retrofit;
 
 /**

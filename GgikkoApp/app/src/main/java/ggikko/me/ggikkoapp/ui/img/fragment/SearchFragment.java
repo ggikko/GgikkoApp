@@ -86,7 +86,6 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
     public Observable<ImageSearchResponse> searchImage(String searchWord) {
         //TODO : paging
         Map<String, String> data = new LinkedHashMap<>();
-        data.put("", "");
         data.put("apiKey", APIKEY);
         data.put("q", searchWord);
         data.put("result", "10");

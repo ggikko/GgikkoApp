@@ -1,8 +1,8 @@
-package ggikko.me.ggikkoapp.ui.di.component;
+package ggikko.me.ggikkoapp.di.component;
 
 import dagger.Subcomponent;
-import ggikko.me.ggikkoapp.ui.di.module.TestFragmentModule;
-import ggikko.me.ggikkoapp.ui.di.qualifier.TestPerFragment;
+import ggikko.me.ggikkoapp.di.module.TestFragmentModule;
+import ggikko.me.ggikkoapp.di.qualifier.TestPerFragment;
 
 /**
  * fragment component

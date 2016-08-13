@@ -16,7 +16,8 @@ import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.fragment.InjectionFragment;
 import ggikko.me.ggikkoapp.ui.img.adapter.ArchiveAdapter;
-import ggikko.me.ggikkoapp.util.animator.LandingAnimator;
+import ggikko.me.ggikkoapp.util.animator.ScaleInAnimator;
+import ggikko.me.ggikkoapp.util.animator.SlideInRightAnimator;
 
 /**
  * A simple {@link InjectionFragment } subclass.
@@ -45,7 +46,7 @@ public class ArchiveFragment extends InjectionFragment {
 
         rv_archive.setLayoutManager(mLinearLayoutManager);
         rv_archive.setAdapter(mArchiveAdapter);
-        rv_archive.setItemAnimator(new LandingAnimator());
+        rv_archive.setItemAnimator(new ScaleInAnimator());
         rv_archive.getItemAnimator().setRemoveDuration(300);
         mArchiveAdapter.refresh();
 
