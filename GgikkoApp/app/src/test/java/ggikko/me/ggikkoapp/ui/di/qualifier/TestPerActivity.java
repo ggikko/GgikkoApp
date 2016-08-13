@@ -1,4 +1,4 @@
-package ggikko.me.ggikkoapp.di.qualifier;
+package ggikko.me.ggikkoapp.ui.di.qualifier;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

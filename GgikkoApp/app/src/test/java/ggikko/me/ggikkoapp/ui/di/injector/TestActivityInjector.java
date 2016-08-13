@@ -1,7 +1,8 @@
-package ggikko.me.ggikkoapp.di.injector;
+package ggikko.me.ggikkoapp.ui.di.injector;
 
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
-import ggikko.me.ggikkoapp.di.component.TestActivityComponent;
+
+import ggikko.me.ggikkoapp.ui.di.component.TestActivityComponent;
 import lombok.Getter;
 
 /**

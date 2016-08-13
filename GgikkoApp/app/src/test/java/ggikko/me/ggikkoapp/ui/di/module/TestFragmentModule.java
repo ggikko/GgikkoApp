@@ -1,4 +1,4 @@
-package ggikko.me.ggikkoapp.di.module;
+package ggikko.me.ggikkoapp.ui.di.module;
 
 
 import android.support.v4.app.Fragment;
@@ -6,8 +6,7 @@ import android.support.v4.app.FragmentManager;
 
 import dagger.Module;
 import dagger.Provides;
-import ggikko.me.ggikkoapp.di.qualifier.PerFragment;
-import ggikko.me.ggikkoapp.di.qualifier.TestPerFragment;
+import ggikko.me.ggikkoapp.ui.di.qualifier.TestPerFragment;
 
 /**
  * Fragment module

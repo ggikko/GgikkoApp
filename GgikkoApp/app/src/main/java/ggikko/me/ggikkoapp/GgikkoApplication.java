@@ -28,7 +28,7 @@ public class GgikkoApplication extends Application {
     @Getter
     ApplicationComponent applicationComponent;
 
-    @Inject DatabaseRealm databaseRealm;
+//    @Inject DatabaseRealm databaseRealm;
 
     @Getter
     protected InjectorCreator injectorCreator;
@@ -52,9 +52,9 @@ public class GgikkoApplication extends Application {
         applicationInjector.inject(this);
     }
 
-    @Override
-    public void onTerminate() {
-        databaseRealm.close();
-        super.onTerminate();
-    }
+//    @Override
+//    public void onTerminate() {
+//        databaseRealm.close();
+//        super.onTerminate();
+//    }
 }

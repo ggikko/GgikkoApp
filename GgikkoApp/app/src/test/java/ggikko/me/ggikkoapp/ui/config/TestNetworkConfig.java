@@ -1,4 +1,4 @@
-package ggikko.me.ggikkoapp.util.api;
+package ggikko.me.ggikkoapp.ui.config;
 
 /**
  * Created by ggikko on 16. 8. 9..

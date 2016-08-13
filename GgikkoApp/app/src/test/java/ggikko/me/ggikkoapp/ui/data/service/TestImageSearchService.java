@@ -1,9 +1,13 @@
-package ggikko.me.ggikkoapp.data.service.img;
+package ggikko.me.ggikkoapp.ui.data.service;
+
+
 
 import com.annimon.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,14 +15,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import ggikko.me.ggikkoapp.di.component.DaggerTestApiComponent;
-import ggikko.me.ggikkoapp.di.component.DaggerTestNetworkComponent;
-import ggikko.me.ggikkoapp.di.component.TestNetworkComponent;
-import ggikko.me.ggikkoapp.di.module.TestNetworkModule;
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.network.service.img.ImageSearchService;
-import ggikko.me.ggikkoapp.util.api.NetworkConfig;
-import ggikko.me.ggikkoapp.util.api.TestNetworkConfig;
+import ggikko.me.ggikkoapp.ui.config.TestNetworkConfig;
+import ggikko.me.ggikkoapp.ui.di.component.DaggerTestApiComponent;
+import ggikko.me.ggikkoapp.ui.di.component.DaggerTestNetworkComponent;
+import ggikko.me.ggikkoapp.ui.di.component.TestNetworkComponent;
+import ggikko.me.ggikkoapp.ui.di.module.TestNetworkModule;
 import rx.observers.TestSubscriber;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,9 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by ggikko on 16. 8. 10..
  */
+
+@RunWith(JUnit4.class)
 public class TestImageSearchService {
 
-    @Inject TestNetworkConfig mTestNetworkConfig;
+    @Inject
+    TestNetworkConfig mTestNetworkConfig;
     @Inject ImageSearchService mImageSearchService;
 
     @Before
