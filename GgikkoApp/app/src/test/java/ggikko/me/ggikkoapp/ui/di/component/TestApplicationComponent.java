@@ -1,15 +1,12 @@
-package ggikko.me.ggikkoapp.di.component;
+package ggikko.me.ggikkoapp.ui.di.component;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 import ggikko.me.ggikkoapp.GgikkoApplication;
-import ggikko.me.ggikkoapp.di.module.ActivityModule;
-import ggikko.me.ggikkoapp.di.module.ApplicationModule;
-import ggikko.me.ggikkoapp.di.module.TestActivityModule;
-import ggikko.me.ggikkoapp.di.module.TestApplicationModule;
-import ggikko.me.ggikkoapp.di.module.TestNetworkModule;
-import ggikko.me.ggikkoapp.di.module.network.NetworkModule;
+import ggikko.me.ggikkoapp.ui.di.module.TestActivityModule;
+import ggikko.me.ggikkoapp.ui.di.module.TestApplicationModule;
+import ggikko.me.ggikkoapp.ui.di.module.TestNetworkModule;
 
 /**
  * Application component -> Activity component -> Fragment component

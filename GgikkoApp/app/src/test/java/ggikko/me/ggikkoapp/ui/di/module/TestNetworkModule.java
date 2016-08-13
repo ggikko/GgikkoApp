@@ -1,7 +1,5 @@
-package ggikko.me.ggikkoapp.di.module;
+package ggikko.me.ggikkoapp.ui.di.module;
 
-
-import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

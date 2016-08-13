@@ -1,6 +1,6 @@
-package ggikko.me.ggikkoapp.di.injector;
+package ggikko.me.ggikkoapp.ui.di.injector;
 
-import ggikko.me.ggikkoapp.di.component.TestFragmentComponent;
+import ggikko.me.ggikkoapp.ui.di.component.TestFragmentComponent;
 import lombok.AccessLevel;
 import lombok.Getter;
 
