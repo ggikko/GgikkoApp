@@ -1,13 +1,13 @@
-package ggikko.me.ggikkoapp.ui.di.component;
+package ggikko.me.ggikkoapp.di.component;
 
 /**
  * Created by ggikko on 16. 5. 25..
  */
 
 import dagger.Component;
-import ggikko.me.ggikkoapp.ui.data.service.TestImageSearchService;
-import ggikko.me.ggikkoapp.ui.di.module.TestApiModule;
-import ggikko.me.ggikkoapp.ui.di.qualifier.TestPerActivity;
+import ggikko.me.ggikkoapp.di.module.TestApiModule;
+import ggikko.me.ggikkoapp.di.qualifier.TestPerActivity;
+import ggikko.me.ggikkoapp.service.TestImageSearchService;
 
 /**
  * API Component

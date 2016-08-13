@@ -40,7 +40,7 @@ public class SearchPresenter extends BasePresenter implements Observer<ImageSear
         }
     }
 
-    private boolean searchWordIsNotEmpty(String searchWord) {
+    public boolean searchWordIsNotEmpty(String searchWord) {
         return !TextUtils.isEmpty(searchWord);
     }
 

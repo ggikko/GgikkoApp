@@ -1,9 +1,9 @@
-package ggikko.me.ggikkoapp.ui.di.component;
+package ggikko.me.ggikkoapp.di.component;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import ggikko.me.ggikkoapp.ui.di.module.TestNetworkModule;
+import ggikko.me.ggikkoapp.di.module.TestNetworkModule;
 import retrofit2.Retrofit;
 
 /**

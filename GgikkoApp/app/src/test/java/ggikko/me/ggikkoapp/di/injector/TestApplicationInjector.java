@@ -1,7 +1,7 @@
-package ggikko.me.ggikkoapp.ui.di.injector;
+package ggikko.me.ggikkoapp.di.injector;
 
 import ggikko.me.ggikkoapp.GgikkoApplication;
-import ggikko.me.ggikkoapp.ui.di.component.TestApplicationComponent;
+import ggikko.me.ggikkoapp.di.component.TestApplicationComponent;
 import lombok.Getter;
 
 public class TestApplicationInjector {

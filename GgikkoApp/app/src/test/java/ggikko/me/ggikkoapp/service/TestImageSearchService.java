@@ -1,5 +1,4 @@
-package ggikko.me.ggikkoapp.ui.data.service;
-
+package ggikko.me.ggikkoapp.service;
 
 
 import com.annimon.stream.Stream;
@@ -15,13 +14,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import ggikko.me.ggikkoapp.config.TestNetworkConfig;
+import ggikko.me.ggikkoapp.di.component.DaggerTestApiComponent;
+import ggikko.me.ggikkoapp.di.component.DaggerTestNetworkComponent;
+import ggikko.me.ggikkoapp.di.component.TestNetworkComponent;
+import ggikko.me.ggikkoapp.di.module.TestNetworkModule;
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.network.service.img.ImageSearchService;
-import ggikko.me.ggikkoapp.ui.config.TestNetworkConfig;
-import ggikko.me.ggikkoapp.ui.di.component.DaggerTestApiComponent;
-import ggikko.me.ggikkoapp.ui.di.component.DaggerTestNetworkComponent;
-import ggikko.me.ggikkoapp.ui.di.component.TestNetworkComponent;
-import ggikko.me.ggikkoapp.ui.di.module.TestNetworkModule;
 import rx.observers.TestSubscriber;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,6 +73,12 @@ public class TestImageSearchService {
         //test
         assertThat(imageSearchingInfoItems).hasSize(1);
         Stream.of(imageSearchingInfoItems).forEach(value -> {
+            Stream.of(value.channel.item).forEach(item->{
+                assertThat(item.thumbnail).isNotEmpty();
+                assertThat(item.title).isNotEmpty();
+                assertThat(item.height).isNotEmpty();
+                assertThat(item.width).isNotEmpty();
+            });
         });
 
     }

@@ -1,4 +1,4 @@
-package ggikko.me.ggikkoapp.ui.di.module;
+package ggikko.me.ggikkoapp.di.module;
 
 
 import com.google.gson.Gson;

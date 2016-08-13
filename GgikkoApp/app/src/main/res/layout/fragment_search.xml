@@ -20,6 +20,6 @@
         android:layout_centerInParent="true"
         android:paddingBottom="48dp"
         android:textSize="18dp"
-        android:text="Please click search icon and..\n Enjoin it!  :)"/>
+        android:text="@string/searchview_helper"/>
 
 </RelativeLayout>
