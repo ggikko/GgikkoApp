@@ -35,7 +35,6 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
     private Context mContext;
     private List<Item> items;
-    private OnRvItemClickListener mOnRvItemClickListener;
     private DatabaseRealm mDatabaseRealm;
 
     public ArchiveAdapter(Context context, DatabaseRealm databaseRealm) {
@@ -57,6 +56,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
         Glide.with(mContext).load(item.thumbnail).into(holder.ivThumbnail);
 
+        //swipe layout 설정
         holder.search_swipe_wrapper.setShowMode(SwipeLayout.ShowMode.LayDown);
         holder.search_swipe_wrapper.addDrag(SwipeLayout.DragEdge.Right, holder.search_behind_wrapper);
 
@@ -72,18 +72,31 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
             }
         });
 
+        //row -> realm save
         holder.search_behind_wrapper.setOnClickListener(view ->mDatabaseRealm.deleteFromArchive(holder.itemView, position, this));
     }
 
+    /**
+     * Swipe Layout이 Open되었는지 checking
+     * @param holder
+     * @return
+     */
     private boolean isSwipeLayoutOpen(ArchiveViewHolder holder) {
         return holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open;
     }
 
+    /**
+     * Item 개수 반환
+     * @return
+     */
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    /**
+     * Item이 추가 되었을 때 refresh 하는 Method
+     */
     @Override
     public void refresh() {
         List<Item> savedItems = mDatabaseRealm.findAll(Item.class);
@@ -91,6 +104,11 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
         notifyDataSetChanged();
     }
 
+    /**
+     * 특정 아이템 에니메이션 효과 -> 레이아웃 중복방지를 위한 200 post delay
+     * @param itemView
+     * @param position
+     */
     @Override
     public void notifySpecificItemRemoved(View itemView, int position) {
         notifyItemRemoved(position);
@@ -114,6 +132,11 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
         }
     }
 
+    /**
+     * fromHTML drprecated -> OS Version마다 분기태움
+     * @param source
+     * @return
+     */
     public static Spanned fromHtml(String source) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
             // noinspection deprecation

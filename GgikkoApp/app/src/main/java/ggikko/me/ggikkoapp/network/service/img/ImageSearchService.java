@@ -12,6 +12,12 @@ import rx.Observable;
  */
 public interface ImageSearchService {
 
+    /**
+     * Image 요청
+     * NEED - api key, q(query), result(result count), pageno(paging), output(json or xml..)
+     * @param options
+     * @return
+     */
     @GET("search/image")
     Observable<ImageSearchResponse> searchImage(@QueryMap Map<String, String> options);
 

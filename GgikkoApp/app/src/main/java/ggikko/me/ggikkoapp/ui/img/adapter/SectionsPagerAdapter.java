@@ -9,13 +9,14 @@ import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 
 import lombok.Getter;
 
+/**
+ * Section pager
+ */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    @Getter
-    private SearchFragment searchFragment;
+    @Getter private SearchFragment searchFragment;
 
-    @Getter
-    private ArchiveFragment archiveFragment;
+    @Getter private ArchiveFragment archiveFragment;
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);

@@ -40,22 +40,39 @@ public class SearchPresenter extends BasePresenter implements Observer<ImageSear
         }
     }
 
+    /**
+     * Text 비어있거나 null Check
+     * @param searchWord
+     * @return
+     */
     public boolean searchWordIsNotEmpty(String searchWord) {
         return !TextUtils.isEmpty(searchWord);
     }
 
+    /**
+     * 생명주기
+     * view refresh, call main view oncompleted
+     */
     @Override
     public void onCompleted() {
         mSearchAdapterDataView.refresh();
         mSearchViewInterface.onCompleted();
     }
 
+    /**
+     * TODO : error 내부 랩핑 필요
+     * @param e
+     */
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
         mSearchViewInterface.onError(e.toString());
     }
 
+    /**
+     * add item to Search Data Model
+     * @param imageSearchResponse
+     */
     @Override
     public void onNext(ImageSearchResponse imageSearchResponse) {
         mSearchAdapterDataModel.add(imageSearchResponse);
