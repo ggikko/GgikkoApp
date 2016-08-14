@@ -28,18 +28,33 @@ public class ArchiveModule {
         this.mContext = context;
     }
 
+    /**
+     * Archive recycler view를 위한 Adapter 제공
+     * Row Save를 위한 Realm Wrapper 객체 제공
+     * @param databaseRealm
+     * @return
+     */
     @Provides
     @PerFragment
     ArchiveAdapter provideArchiveAdapter(DatabaseRealm databaseRealm){
         return new ArchiveAdapter(mContext, databaseRealm);
     }
 
+    /**
+     * Recycler View를 위한 Data View 제공
+     * @param archiveAdapter
+     * @return
+     */
     @Provides
     @PerFragment
     ArchiveAdapterDataView provideArchiveAdapterDataView(ArchiveAdapter archiveAdapter){
         return archiveAdapter;
     }
 
+    /**
+     * Layout manager 적용
+     * @return
+     */
     @Provides
     @PerFragment
     LinearLayoutManager provideLinearLayoutManager(){

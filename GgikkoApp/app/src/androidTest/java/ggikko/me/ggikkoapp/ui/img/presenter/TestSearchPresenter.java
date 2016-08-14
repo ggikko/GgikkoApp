@@ -64,5 +64,4 @@ public class TestSearchPresenter {
         verify(searchAdapterDataView).refresh();
         verify(searchViewInterface).onCompleted();
     }
-
 }

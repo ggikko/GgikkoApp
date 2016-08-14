@@ -18,21 +18,38 @@ import lombok.Getter;
  */
 public class GgikkoApplication extends Application {
 
-    @Getter
-    private static Context context;
+    @Getter private static Context context;
 
+    /**
+     * Application를 반환한다.
+     * Application Context는 Activity Context와 중복되어 duplicate버그를 발생시킨다.
+     * 따라서 Singletone Method로 Application을 반환한다.
+     * @param application
+     */
     private static void setContext(GgikkoApplication application) {
         context = application;
     }
 
-    @Getter
-    ApplicationComponent applicationComponent;
+    /**
+     * Application module과 bridge역할을 하며 injector를 통해 inject시킨다.
+     */
+    @Getter ApplicationComponent applicationComponent;
 
+    /**
+     * Database Realm 객체를 해제할 때 사용한다.
+     */
 //    @Inject DatabaseRealm databaseRealm;
 
-    @Getter
-    protected InjectorCreator injectorCreator;
+    /**
+     * Application module과 bridge역할을 하며 injector를 통해 inject시킨다.
+     */
+    @Getter protected InjectorCreator injectorCreator;
 
+    /**
+     * Font를 적용시킨다. - Typekit
+     * 앱의 Injector 클래스를 생성하고 Application componet를 생성하여 주입한다. 각 Activity, Fragment는 Injection class를 상속받으며
+     * 이를 통해 각 컴포넌트가 생성될 때 injector를 통해 주입하게 된다.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -42,16 +59,26 @@ public class GgikkoApplication extends Application {
         inject();
     }
 
+    /**
+     * Injector을 만든다
+     * @return
+     */
     protected InjectorCreator makeInjectorCreator() {
         return new InjectorCreator();
     }
 
+    /**
+     * Injector를 통해 Application component를 생성하고 inject 시킨다.
+     */
     protected final void inject() {
         final ApplicationInjector applicationInjector = injectorCreator.makeApplicationInjector(this);
         applicationComponent = applicationInjector.getApplicationComponent();
         applicationInjector.inject(this);
     }
 
+    /**
+     * 앱이 종료 될 떼 realm객체를 반환한다.
+     */
 //    @Override
 //    public void onTerminate() {
 //        databaseRealm.close();

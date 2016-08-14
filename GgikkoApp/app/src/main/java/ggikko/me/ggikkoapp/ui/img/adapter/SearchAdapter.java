@@ -34,7 +34,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private Context mContext;
     private List<Item> items;
-    private OnRvItemClickListener mOnRvItemClickListener;
     private DatabaseRealm mDatabaseRealm;
 
     public SearchAdapter(Context context, DatabaseRealm databaseRealm) {
@@ -78,27 +77,46 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         });
     }
 
+    /**
+     * Item count 반환
+     * @return
+     */
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    /**
+     * Item refresh & view rendering again
+     */
     @Override
     public void refresh() {
         notifyDataSetChanged();
     }
 
+    /**
+     * remove specific item & refresh view
+     * @param itemView
+     * @param position
+     */
     @Override
     public void notifySpecificItemRemoved(View itemView, int position) {
         notifyItemRemoved(position);
         itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
     }
 
+    /**
+     * item add
+     * @param imageSearchResponse
+     */
     @Override
     public void add(ImageSearchResponse imageSearchResponse) {
         items.addAll(imageSearchResponse.channel.item);
     }
 
+    /**
+     * item clear
+     */
     @Override
     public void clear() {
         items.clear();
@@ -121,6 +139,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
+    /**
+     * fromHTML drprecated -> OS Version마다 분기태움
+     * @param source
+     * @return
+     */
     public static Spanned fromHtml(String source) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
             // noinspection deprecation

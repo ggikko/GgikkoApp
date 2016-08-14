@@ -52,6 +52,11 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
     @Inject SearchAdapter mSearchAdapter;
     @Inject SearchPresenter mSearchPresenter;
 
+
+    /**
+     * singleton static 생성자
+     * @return
+     */
     public static SearchFragment getInstance(){
         if(mSearchFragment == null) return new SearchFragment();
         return mSearchFragment;
@@ -63,28 +68,50 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, rootView);
 
-        rv_search.setAdapter(mSearchAdapter);
-        rv_search.setItemAnimator(new SlideInRightAnimator());
-        rv_search.getItemAnimator().setRemoveDuration(200);
-        rv_search.setLayoutManager(mLinearLayoutManager);
+        recyclerViewSetting();
 
         return rootView;
     }
 
+    /**
+     * recyclerview setting
+     * @Inject adapter, layoutManager
+     */
+    private void recyclerViewSetting() {
+        rv_search.setAdapter(mSearchAdapter);
+        rv_search.setItemAnimator(new SlideInRightAnimator());
+        rv_search.getItemAnimator().setRemoveDuration(200);
+        rv_search.setLayoutManager(mLinearLayoutManager);
+    }
+
+    /**
+     * 완료되었을 때 처리
+     * @param
+     */
     @Override
     public void onCompleted() {
         ((ImageSearchActivity)mContext).hideLoading();
     }
 
+    /**
+     * 에러 핸들링
+     * TODO : error handling(내부 객체 랩핑 or Retry code)
+     * @param errorString
+     */
     @Override
     public void onError(String errorString) {
-        //TODO : error handling
         ((ImageSearchActivity)mContext).hideLoading();
     }
 
+    /**
+     * Image 요청 parameter + API call
+     * need @Inject ImageSearch Service
+     * TODO : paging
+     * @param searchWord
+     * @return Observable<ImageSearchResponse>
+     */
     @Override
     public Observable<ImageSearchResponse> searchImage(String searchWord) {
-        //TODO : paging
         Map<String, String> data = new LinkedHashMap<>();
         data.put("apiKey", APIKEY);
         data.put("q", searchWord);
@@ -102,11 +129,20 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
         mSearchPresenter.requestSearchImage(searchWord);
     }
 
+    /**
+     * View의 visivility 판단
+     * TODO : Util class로 빼서 @Inject 필요
+     * @param view
+     * @return
+     */
     private boolean isViewVisible(View view){
         if(view.getVisibility() == View.VISIBLE) return true;
         return false;
     }
 
+    /**
+     * TODO : Hide keyboard 등 페이징 & close 처리 or OnPause에서
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();

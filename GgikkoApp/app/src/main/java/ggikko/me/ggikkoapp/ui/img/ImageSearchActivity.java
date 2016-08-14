@@ -20,6 +20,7 @@ import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SectionsPagerAdapter;
 
+//TODO : code convetion 필요
 public class ImageSearchActivity extends InjectionActivity {
 
     private SearchView mSearchView;
@@ -46,7 +47,8 @@ public class ImageSearchActivity extends InjectionActivity {
     }
 
     /**
-     * toolbar setting
+     * toolbar 타이틀 적용
+     * support actionbar에 toolbar등록
      */
     private void toolbarSetting() {
         activity_image_toolbar.setTitle(app_name);
@@ -54,7 +56,10 @@ public class ImageSearchActivity extends InjectionActivity {
     }
 
     /**
-     * setup tab layout
+     * 1. view pager를 등록
+     * 2. section pager adapter를 생성하고 각 page activity정함
+     * 3. 페이지 변경이 일어날 때마다 archive fragment의 content refresh 시켜줌
+     * 4. 탭을 이동할 때 아이콘에 Alpha값을 주어 client가 현재 어떤 페이지에 있는지 인지시켜줌
      */
     private void setupTabs() {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
@@ -109,14 +114,33 @@ public class ImageSearchActivity extends InjectionActivity {
         });
     }
 
+    /**
+     * 커스텀 탭을 이용하여 alpha값을 줌 - 100
+     * setupTabs method에서 사용
+     * @param resId
+     * @param alpha
+     * @return
+     */
     private View getCustomIcon(int resId, int alpha) {
         return getCustomIcon(AppCompatDrawableManager.get().getDrawable(activity_image_tabs.getContext(), resId), alpha);
     }
 
+    /**
+     * 탭의 커스텀 아이콘의 alpha값을 줍니다 - 200
+     * setupTabs method에서 사용
+     * @param resId
+     * @return
+     */
     private View getCustomIcon(int resId) {
         return getCustomIcon(AppCompatDrawableManager.get().getDrawable(activity_image_tabs.getContext(), resId), 255);
     }
 
+    /**
+     * custom view 를 inflate해주고 icon, drawable, alpha설정 후 만들어진 view 반환
+     * @param icon
+     * @param alpha
+     * @return
+     */
     private View getCustomIcon(Drawable icon, int alpha) {
         ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.custom_tab, null);
         imageView.setImageDrawable(icon);
@@ -124,6 +148,13 @@ public class ImageSearchActivity extends InjectionActivity {
         return imageView;
     }
 
+    /**
+     * 검색 View 생성 및 힌트 설정
+     * 완료 후에 softkeyboard 내리고 clear focus
+     * //TODO 추후에 publish subscriber를 이용하여 일정 시간 단위 후 입력이 안되면 자동으로 service를 call하는 방식 적용 예정
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);

@@ -10,7 +10,17 @@ import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
  */
 public interface SearchAdapterDataView {
 
+    /**
+     * Data adapter refresh
+     */
     void refresh();
+
+    /**
+     * specific item removed
+     * 일부만 변경시켜 애니메이이션 적용
+     * @param itemView
+     * @param position
+     */
     void notifySpecificItemRemoved(View itemView, int position);
 }
 
