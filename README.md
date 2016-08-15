@@ -6,7 +6,7 @@ A sample that shows how you save some data by using OPEN API that based on vario
 Screenshots
 ------------
 <img src="https://github.com/ggikko/GgikkoApp/blob/master/sample1.png" width="270" height="480" />
-<img src="https://github.com/ggikko/GgikkoApp/blob/master/sample1.png" width="270" height="480" />
+<img src="https://github.com/ggikko/GgikkoApp/blob/master/sample2.png" width="270" height="480" />
 
 Pre-requisites
 --------------
