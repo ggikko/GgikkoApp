@@ -30,7 +30,8 @@ Project architcture
 
 Libraries
 ------------
-// Dagger - http://google.github.io/dagger/
+
+	// Dagger - http://google.github.io/dagger/
     apt "com.google.dagger:dagger-compiler:${dagger2Version}"
     compile "com.google.dagger:dagger:${dagger2Version}"
     provided "org.glassfish:javax.annotation:${glassfishVersion}"
@@ -94,5 +95,25 @@ Libraries
     androidTestCompile "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}"
     androidTestCompile "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}"
     androidTestCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
+ 
+    ext {
+	    supportLibraryVersion = '24.1.1'
+	    retrofit2Version = '2.0.2'
+	    butterKnifeVersion = '8.2.1'
+	    dagger2Version = '2.5'
+	    glassfishVersion = '10.0-b28'
+	    lombokVersion = "1.12.6"
+	    glideVersion = '3.7.0'
+	    okhttpVersion = '3.3.1'
+	    typekitVersion = '1.0.0'
+	    testRunnerVersion = "0.5"
+	    espressoVersion = "2.2.2"
+	    rxAndroidVersion = '1.1.0'
+	    dexmakerVersion = "1.4"
+	    hamcrestVersion = "1.3"
+	    assertjVersion = "1.1.1"
+	    streamapiVersion = "1.1.0"
+	    swipelayoutVersion = "1.2.0@aar"
+	}
 
 
