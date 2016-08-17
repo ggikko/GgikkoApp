@@ -1,4 +1,4 @@
-GGIKKO SAMPE APP (JIHONG PARK)
+GGIKKO SAMPLE APP (JIHONG PARK)
 ===================================
 
 A sample that shows how you save some data by using OPEN API that based on various libraries and use MVP pattern (dagger2, rx, retrofit2, mockito). That shows how to write basic test code (UI & Network service). 
