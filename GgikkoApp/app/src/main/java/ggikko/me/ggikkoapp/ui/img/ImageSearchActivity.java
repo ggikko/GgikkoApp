@@ -20,7 +20,7 @@ import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SectionsPagerAdapter;
 
-//TODO : code convetion 필요
+//TODO : code convention 필요
 public class ImageSearchActivity extends InjectionActivity {
 
     private SearchView mSearchView;

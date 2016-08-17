@@ -32,8 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(JUnit4.class)
 public class TestImageSearchService {
 
-    @Inject
-    TestNetworkConfig mTestNetworkConfig;
+    @Inject TestNetworkConfig mTestNetworkConfig;
     @Inject ImageSearchService mImageSearchService;
 
     @Before
@@ -72,14 +71,13 @@ public class TestImageSearchService {
 
         //test
         assertThat(imageSearchingInfoItems).hasSize(1);
-        Stream.of(imageSearchingInfoItems).forEach(value -> {
+        Stream.of(imageSearchingInfoItems).forEach(value ->
             Stream.of(value.channel.item).forEach(item->{
                 assertThat(item.thumbnail).isNotEmpty();
                 assertThat(item.title).isNotEmpty();
                 assertThat(item.height).isNotEmpty();
                 assertThat(item.width).isNotEmpty();
-            });
-        });
+            }));
 
     }
 
