@@ -98,6 +98,8 @@ dependencies {
     testCompile "com.annimon:stream:${streamapiVersion}"
     testCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
 
     // Android JUnit Runner
     androidTestCompile 'com.android.support:support-annotations:24.0.0'
