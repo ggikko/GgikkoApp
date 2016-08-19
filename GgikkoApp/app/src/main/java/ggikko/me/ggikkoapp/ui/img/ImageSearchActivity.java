@@ -8,11 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -21,9 +22,12 @@ import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SectionsPagerAdapter;
 import ggikko.me.ggikkoapp.ui.img.fragment.ArchiveFragment;
+import ggikko.me.ggikkoapp.util.log.DebugLog;
 
 //TODO : code convention 필요
 public class ImageSearchActivity extends InjectionActivity {
+
+    private static String TAG = "ImageSearchActivity";
 
     private SearchView mSearchView;
     private MenuItem mMenuItem;
@@ -33,6 +37,8 @@ public class ImageSearchActivity extends InjectionActivity {
     @BindView(R.id.activity_image_tabs) TabLayout activity_image_tabs;
     @BindString(R.string.app_name) String app_name;
     @BindString(R.string.searchview_hint) String searchview_hint;
+
+    @Inject DebugLog mDebugLog;
 
     @Override
     protected int getLayoutRes() {
@@ -46,6 +52,44 @@ public class ImageSearchActivity extends InjectionActivity {
         toolbarSetting();
         //tab pager
         setupTabs();
+
+        mDebugLog.d("onCreate");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mDebugLog.d("onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDebugLog.d("onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDebugLog.d("onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDebugLog.d("onStop");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mDebugLog.d("onRestart");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDebugLog.d("onDestroy");
     }
 
     /**
@@ -77,7 +121,7 @@ public class ImageSearchActivity extends InjectionActivity {
             @Override
             public void onPageSelected(int position) {
                 Fragment currentFragment = sectionsPagerAdapter.getFragmentFromCollection(position);
-                if(currentFragment !=null && currentFragment instanceof ArchiveFragment) ((ArchiveFragment) currentFragment).refresh();
+                if(currentFragment instanceof ArchiveFragment) ((ArchiveFragment) currentFragment).refresh();
             }
 
             @Override
@@ -189,5 +233,7 @@ public class ImageSearchActivity extends InjectionActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
 }

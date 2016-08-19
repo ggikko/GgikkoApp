@@ -1,5 +1,6 @@
 package ggikko.me.ggikkoapp.di.base.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -17,8 +18,13 @@ public class InjectionFragment extends Fragment {
     private FragmentInjector fragmentInjector;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onAttach(Context context) {
+        super.onAttach(context);
         inject();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 

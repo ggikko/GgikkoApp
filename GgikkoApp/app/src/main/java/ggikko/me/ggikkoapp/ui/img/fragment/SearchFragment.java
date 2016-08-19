@@ -3,6 +3,7 @@ package ggikko.me.ggikkoapp.ui.img.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapter;
 import ggikko.me.ggikkoapp.ui.img.listener.SearchViewInterface;
 import ggikko.me.ggikkoapp.ui.img.presenter.SearchPresenter;
 import ggikko.me.ggikkoapp.util.animator.SlideInRightAnimator;
+import ggikko.me.ggikkoapp.util.log.DebugLog;
 import rx.Observable;
 
 /**
@@ -52,6 +54,8 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
     @Inject SearchAdapter mSearchAdapter;
     @Inject SearchPresenter mSearchPresenter;
 
+    //debug
+    @Inject DebugLog mDebugLog;
 
     /**
      * singleton static 생성자
@@ -72,6 +76,74 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
 
         return rootView;
     }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mDebugLog.d("onAttach");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDebugLog.d("onCreate");
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mDebugLog.d("onViewCreated");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mDebugLog.d("onActivityCreated");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        mDebugLog.d("onViewStateRestored");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mDebugLog.d("onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDebugLog.d("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDebugLog.d("onPause");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDebugLog.d("onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDebugLog.d("onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mDebugLog.d("onDetach");
+    }
+
 
     /**
      * recyclerview setting
@@ -140,11 +212,4 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
         return false;
     }
 
-    /**
-     * TODO : Hide keyboard 등 페이징 & close 처리 or OnPause에서
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }
