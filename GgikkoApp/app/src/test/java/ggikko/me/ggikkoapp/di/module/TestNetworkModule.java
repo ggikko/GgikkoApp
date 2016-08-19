@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ggikko.me.ggikkoapp.util.log.AppLog;
+import ggikko.me.ggikkoapp.util.log.NetworkLog;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -84,7 +84,7 @@ public class TestNetworkModule {
     public OkHttpClient providesOkHttpClient() {
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 
-        if (AppLog.SHOULD_LOG) {
+        if (NetworkLog.SHOULD_LOG) {
             okBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         }
         return okBuilder.build();

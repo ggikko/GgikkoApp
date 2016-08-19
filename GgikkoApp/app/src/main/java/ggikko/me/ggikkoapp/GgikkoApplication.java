@@ -2,6 +2,8 @@ package ggikko.me.ggikkoapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 import com.tsengvn.typekit.Typekit;
 
@@ -19,6 +21,8 @@ import lombok.Getter;
 public class GgikkoApplication extends Application {
 
     @Getter private static Context context;
+
+    public static boolean DEBUG;
 
     /**
      * Application를 반환한다.
@@ -53,6 +57,7 @@ public class GgikkoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.DEBUG = isDebuggable(this);
         Typekit.getInstance().addNormal(Typekit.createFromAsset(this, "Roboto-Medium.ttf"));
         setContext(this);
         injectorCreator = makeInjectorCreator();
@@ -74,6 +79,21 @@ public class GgikkoApplication extends Application {
         final ApplicationInjector applicationInjector = injectorCreator.makeApplicationInjector(this);
         applicationComponent = applicationInjector.getApplicationComponent();
         applicationInjector.inject(this);
+    }
+
+    /**
+     * APP의 상태가 Debug모드인지 판별
+     * @param context
+     * @return
+     */
+    private boolean isDebuggable(Context context) {
+        boolean debuggable = false;
+        PackageManager pm = context.getPackageManager();
+        try {
+            ApplicationInfo appinfo = pm.getApplicationInfo(context.getPackageName(), 0);
+            debuggable = (0 != (appinfo.flags & ApplicationInfo.FLAG_DEBUGGABLE));
+        } catch (PackageManager.NameNotFoundException e) {}
+        return debuggable;
     }
 
     /**

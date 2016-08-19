@@ -1,7 +1,9 @@
 package ggikko.me.ggikkoapp.ui.img.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +19,14 @@ import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.fragment.InjectionFragment;
 import ggikko.me.ggikkoapp.ui.img.adapter.ArchiveAdapter;
 import ggikko.me.ggikkoapp.util.animator.ScaleInAnimator;
+import ggikko.me.ggikkoapp.util.log.DebugLog;
 
 /**
  * A simple {@link InjectionFragment } subclass.
  */
 public class ArchiveFragment extends InjectionFragment {
+
+    private static String TAG = "ArchiveFragment";
 
     private static ArchiveFragment mArchiveFragment;
 
@@ -29,6 +34,7 @@ public class ArchiveFragment extends InjectionFragment {
 
     @Inject ArchiveAdapter mArchiveAdapter;
     @Inject LinearLayoutManager mLinearLayoutManager;
+    @Inject DebugLog mDebugLog;
 
     /**
      * singleton static 생성자
@@ -48,8 +54,74 @@ public class ArchiveFragment extends InjectionFragment {
         ButterKnife.bind(this, rootView);
 
         recyclerViewSetting();
-
+        mDebugLog.d("onCreateView");
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mDebugLog.d("onAttach");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDebugLog.d("onCreate");
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mDebugLog.d("onViewCreated");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mDebugLog.d("onActivityCreated");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        mDebugLog.d("onViewStateRestored");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mDebugLog.d("onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDebugLog.d("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDebugLog.d("onPause");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDebugLog.d("onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDebugLog.d("onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mDebugLog.d("onDetach");
     }
 
     /**
@@ -69,7 +141,6 @@ public class ArchiveFragment extends InjectionFragment {
      *
      */
     public void refresh() {
-        Log.e("ggikko", "refresh");
         if(mArchiveAdapter!=null)mArchiveAdapter.refresh();
     }
 }
