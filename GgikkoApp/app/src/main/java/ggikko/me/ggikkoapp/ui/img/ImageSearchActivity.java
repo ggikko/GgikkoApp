@@ -2,6 +2,7 @@ package ggikko.me.ggikkoapp.ui.img;
 
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatDrawableManager;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.di.base.activity.InjectionActivity;
 import ggikko.me.ggikkoapp.ui.img.adapter.SectionsPagerAdapter;
+import ggikko.me.ggikkoapp.ui.img.fragment.ArchiveFragment;
 
 //TODO : code convention 필요
 public class ImageSearchActivity extends InjectionActivity {
@@ -74,11 +76,8 @@ public class ImageSearchActivity extends InjectionActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position ==0) {
-                    sectionsPagerAdapter.getSearchFragment();
-                }else{
-                    sectionsPagerAdapter.getArchiveFragment().refresh();
-                }
+                Fragment currentFragment = sectionsPagerAdapter.getFragmentFromCollection(position);
+                if(currentFragment !=null && currentFragment instanceof ArchiveFragment) ((ArchiveFragment) currentFragment).refresh();
             }
 
             @Override

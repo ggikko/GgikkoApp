@@ -4,6 +4,7 @@ package ggikko.me.ggikkoapp.ui.img.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class ArchiveFragment extends InjectionFragment {
      *
      */
     public void refresh() {
+        Log.e("ggikko", "refresh");
         if(mArchiveAdapter!=null)mArchiveAdapter.refresh();
     }
 }
