@@ -50,7 +50,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         return "search";
       case 1:
         return "archive";
-      default :
+      default:
         return "";
     }
   }
