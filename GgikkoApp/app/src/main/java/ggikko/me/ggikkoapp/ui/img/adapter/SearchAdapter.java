@@ -23,132 +23,139 @@ import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.network.models.img.Item;
-import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
 import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 
 /**
  * Created by ggikko on 16. 8. 11..
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>
-        implements SearchAdapterDataModel, SearchAdapterDataView {
+    implements SearchAdapterDataModel, SearchAdapterDataView {
 
-    private Context mContext;
-    private List<Item> items;
-    private DatabaseRealm mDatabaseRealm;
+  private Context context;
+  private List<Item> items;
+  private DatabaseRealm databaseRealm;
 
-    public SearchAdapter(Context context, DatabaseRealm databaseRealm) {
-        this.mContext = context;
-        this.mDatabaseRealm = databaseRealm;
-        this.items = new ArrayList<>();
+  /**
+   * modified by ggikko on 16. 8. 23..
+   *
+   * @param context       : activity's context
+   * @param databaseRealm : realm wrapper object
+   */
+  public SearchAdapter(Context context, DatabaseRealm databaseRealm) {
+    this.context = context;
+    this.databaseRealm = databaseRealm;
+    this.items = new ArrayList<>();
+  }
+
+  @Override
+  public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(context).inflate(R.layout.item_search_row, parent, false);
+    return new SearchViewHolder(view);
+  }
+
+  @Override
+  public void onBindViewHolder(SearchViewHolder holder, int position) {
+    final Item item = items.get(position);
+    holder.swipeWrapperLayout.setSwipeEnabled(false);
+
+    Glide.with(context).load(item.thumbnail).into(holder.ivThumbnail);
+
+    holder.swipeWrapperLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+    holder.swipeWrapperLayout.addDrag(SwipeLayout.DragEdge.Right, holder.behindWrapperLayout);
+
+    holder.title.setText("Title :\n" + fromHtml(item.title));
+    holder.height.setText("Height : " + item.height);
+    holder.width.setText("Width : " + item.width);
+
+    holder.surfaceWrapperLayout.setOnClickListener(view -> {
+      if (holder.swipeWrapperLayout.getOpenStatus() == SwipeLayout.Status.Open) {
+        holder.swipeWrapperLayout.close(true);
+      } else {
+        holder.swipeWrapperLayout.open(true);
+      }
+    });
+
+    holder.behindWrapperLayout.setOnClickListener(view -> {
+      databaseRealm.add(item);
+      items.remove(item);
+      notifySpecificItemRemoved(holder.itemView, position);
+    });
+  }
+
+  /**
+   * modified by ggikko on 16. 8. 23.. Item count 반환
+   */
+  @Override
+  public int getItemCount() {
+    return items.size();
+  }
+
+  /**
+   * modified by ggikko on 16. 8. 23.. Item refresh & view rendering again
+   */
+  @Override
+  public void refresh() {
+    notifyDataSetChanged();
+  }
+
+  /**
+   * modified by ggikko on 16. 8. 23.. remove specific item & refresh view
+   */
+  @Override
+  public void notifySpecificItemRemoved(View itemView, int position) {
+    notifyItemRemoved(position);
+    itemView.postDelayed(() -> notifyItemRangeChanged(position, getItemCount()), 200);
+  }
+
+  /**
+   * modified by ggikko on 16. 8. 23.. item add
+   */
+  @Override
+  public void add(ImageSearchResponse imageSearchResponse) {
+    items.addAll(imageSearchResponse.channel.item);
+  }
+
+  /**
+   * modified by ggikko on 16. 8. 23.. item clear
+   */
+  @Override
+  public void clear() {
+    items.clear();
+  }
+
+  static class SearchViewHolder extends RecyclerView.ViewHolder {
+
+    @BindView(R.id.iv_item_search_result_thumb)
+    ImageView ivThumbnail;
+    @BindView(R.id.search_swipe_wrapper)
+    SwipeLayout swipeWrapperLayout;
+    @BindView(R.id.search_behind_wrapper)
+    RelativeLayout behindWrapperLayout;
+    @BindView(R.id.search_surface_wrapper)
+    LinearLayout surfaceWrapperLayout;
+
+    @BindView(R.id.search_title)
+    TextView title;
+    @BindView(R.id.search_height)
+    TextView height;
+    @BindView(R.id.search_width)
+    TextView width;
+
+    public SearchViewHolder(View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
     }
+  }
 
-    @Override
-    public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_row, parent, false);
-        return new SearchViewHolder(view);
+  /**
+   * modified by ggikko on 16. 8. 23..
+   * fromHTML drprecated -> OS Version마다 분기태움
+   */
+  public static Spanned fromHtml(String source) {
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+      // noinspection deprecation
+      return Html.fromHtml(source);
     }
-
-    @Override
-    public void onBindViewHolder(SearchViewHolder holder, int position) {
-        final Item item = items.get(position);
-        holder.search_swipe_wrapper.setSwipeEnabled(false);
-
-        Glide.with(mContext).load(item.thumbnail).into(holder.ivThumbnail);
-
-        holder.search_swipe_wrapper.setShowMode(SwipeLayout.ShowMode.LayDown);
-        holder.search_swipe_wrapper.addDrag(SwipeLayout.DragEdge.Right, holder.search_behind_wrapper);
-
-        holder.search_title.setText("Title :\n" + fromHtml(item.title));
-        holder.search_height.setText("Height : " + item.height);
-        holder.search_width.setText("Width : " + item.width);
-
-        holder.search_surface_wrapper.setOnClickListener(view->{
-            if (holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open) {
-                holder.search_swipe_wrapper.close(true);
-            } else {
-                holder.search_swipe_wrapper.open(true);
-            }
-        });
-
-        holder.search_behind_wrapper.setOnClickListener(view ->{
-            mDatabaseRealm.add(item);
-            items.remove(item);
-            notifySpecificItemRemoved(holder.itemView,position);
-        });
-    }
-
-    /**
-     * Item count 반환
-     * @return
-     */
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    /**
-     * Item refresh & view rendering again
-     */
-    @Override
-    public void refresh() {
-        notifyDataSetChanged();
-    }
-
-    /**
-     * remove specific item & refresh view
-     * @param itemView
-     * @param position
-     */
-    @Override
-    public void notifySpecificItemRemoved(View itemView, int position) {
-        notifyItemRemoved(position);
-        itemView.postDelayed(()->notifyItemRangeChanged(position,getItemCount()),200);
-    }
-
-    /**
-     * item add
-     * @param imageSearchResponse
-     */
-    @Override
-    public void add(ImageSearchResponse imageSearchResponse) {
-        items.addAll(imageSearchResponse.channel.item);
-    }
-
-    /**
-     * item clear
-     */
-    @Override
-    public void clear() {
-        items.clear();
-    }
-
-    static class SearchViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.iv_item_search_result_thumb) ImageView ivThumbnail;
-        @BindView(R.id.search_swipe_wrapper) SwipeLayout search_swipe_wrapper;
-        @BindView(R.id.search_behind_wrapper) RelativeLayout search_behind_wrapper;
-        @BindView(R.id.search_surface_wrapper) LinearLayout search_surface_wrapper;
-
-        @BindView(R.id.search_title) TextView search_title;
-        @BindView(R.id.search_height) TextView search_height;
-        @BindView(R.id.search_width) TextView search_width;
-
-        public SearchViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
-    /**
-     * fromHTML drprecated -> OS Version마다 분기태움
-     * @param source
-     * @return
-     */
-    public static Spanned fromHtml(String source) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            // noinspection deprecation
-            return Html.fromHtml(source);
-        }
-        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
-    }
+    return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+  }
 }

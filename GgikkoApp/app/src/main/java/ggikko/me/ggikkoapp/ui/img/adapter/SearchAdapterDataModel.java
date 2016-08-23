@@ -7,15 +7,16 @@ import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
  */
 public interface SearchAdapterDataModel {
 
-    /**
-     * Data를 더해줄 때 필요
-     * @param imageSearchResponse
-     */
-    void add(ImageSearchResponse imageSearchResponse);
+  /**
+   * modified by ggikko on 16. 8. 23..
+   * Data를 더해줄 때 필요
+   */
+  void add(ImageSearchResponse imageSearchResponse);
 
-    /**
-     * Data adapter clear
-     */
-    void clear();
+  /**
+   * modified by ggikko on 16. 8. 23..
+   * Data adapter clear
+   */
+  void clear();
 
 }

@@ -9,5 +9,5 @@ import ggikko.me.ggikkoapp.ui.img.fragment.SearchFragment;
 @PerFragment
 @Subcomponent(modules = SearchModule.class)
 public interface SearchComponent {
-    void inject(SearchFragment searchFragment);
+  void inject(SearchFragment searchFragment);
 }

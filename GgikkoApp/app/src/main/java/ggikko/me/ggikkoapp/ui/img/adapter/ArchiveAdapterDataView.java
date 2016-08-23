@@ -9,17 +9,16 @@ import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
  */
 public interface ArchiveAdapterDataView {
 
-    /**
-     * Data adapter refresh
-     */
-    void refresh();
+  /**
+   * modified by ggikko on 16. 8. 23..
+   * Data adapter refresh
+   */
+  void refresh();
 
-    /**
-     * specific item removed
-     * 일부만 변경시켜 애니메이이션 적용
-     * @param itemView
-     * @param position
-     */
-    void notifySpecificItemRemoved(View itemView, int position);
+  /**
+   * modified by ggikko on 16. 8. 23..
+   * specific item removed 일부만 변경시켜 애니메이이션 적용
+   */
+  void notifySpecificItemRemoved(View itemView, int position);
 }
 
