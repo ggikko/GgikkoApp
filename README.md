@@ -8,6 +8,11 @@ Screenshots
 <img src="https://github.com/ggikko/GgikkoApp/blob/master/sample1.png" width="270" height="480" />
 <img src="https://github.com/ggikko/GgikkoApp/blob/master/sample2.png" width="270" height="480" />
 
+Code style
+------------
+This repository's code style follow google code styleguide .
+ref : https://github.com/google/styleguide
+
 Pre-requisites
 --------------
 
