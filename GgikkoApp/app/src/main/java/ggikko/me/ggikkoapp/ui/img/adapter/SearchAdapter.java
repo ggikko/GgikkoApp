@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 import ggikko.me.ggikkoapp.R;
 import ggikko.me.ggikkoapp.network.models.img.ImageSearchResponse;
 import ggikko.me.ggikkoapp.network.models.img.Item;
-import ggikko.me.ggikkoapp.ui.img.listener.OnRvItemClickListener;
 import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 
 /**
@@ -32,53 +31,59 @@ import ggikko.me.ggikkoapp.util.db.DatabaseRealm;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>
     implements SearchAdapterDataModel, SearchAdapterDataView {
 
-  private Context mContext;
+  private Context context;
   private List<Item> items;
-  private DatabaseRealm mDatabaseRealm;
+  private DatabaseRealm databaseRealm;
 
+  /**
+   * modified by ggikko on 16. 8. 23..
+   *
+   * @param context       : activity's context
+   * @param databaseRealm : realm wrapper object
+   */
   public SearchAdapter(Context context, DatabaseRealm databaseRealm) {
-    this.mContext = context;
-    this.mDatabaseRealm = databaseRealm;
+    this.context = context;
+    this.databaseRealm = databaseRealm;
     this.items = new ArrayList<>();
   }
 
   @Override
   public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_row, parent, false);
+    View view = LayoutInflater.from(context).inflate(R.layout.item_search_row, parent, false);
     return new SearchViewHolder(view);
   }
 
   @Override
   public void onBindViewHolder(SearchViewHolder holder, int position) {
     final Item item = items.get(position);
-    holder.search_swipe_wrapper.setSwipeEnabled(false);
+    holder.swipeWrapperLayout.setSwipeEnabled(false);
 
-    Glide.with(mContext).load(item.thumbnail).into(holder.ivThumbnail);
+    Glide.with(context).load(item.thumbnail).into(holder.ivThumbnail);
 
-    holder.search_swipe_wrapper.setShowMode(SwipeLayout.ShowMode.LayDown);
-    holder.search_swipe_wrapper.addDrag(SwipeLayout.DragEdge.Right, holder.search_behind_wrapper);
+    holder.swipeWrapperLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+    holder.swipeWrapperLayout.addDrag(SwipeLayout.DragEdge.Right, holder.behindWrapperLayout);
 
-    holder.search_title.setText("Title :\n" + fromHtml(item.title));
-    holder.search_height.setText("Height : " + item.height);
-    holder.search_width.setText("Width : " + item.width);
+    holder.title.setText("Title :\n" + fromHtml(item.title));
+    holder.height.setText("Height : " + item.height);
+    holder.width.setText("Width : " + item.width);
 
-    holder.search_surface_wrapper.setOnClickListener(view -> {
-      if (holder.search_swipe_wrapper.getOpenStatus() == SwipeLayout.Status.Open) {
-        holder.search_swipe_wrapper.close(true);
+    holder.surfaceWrapperLayout.setOnClickListener(view -> {
+      if (holder.swipeWrapperLayout.getOpenStatus() == SwipeLayout.Status.Open) {
+        holder.swipeWrapperLayout.close(true);
       } else {
-        holder.search_swipe_wrapper.open(true);
+        holder.swipeWrapperLayout.open(true);
       }
     });
 
-    holder.search_behind_wrapper.setOnClickListener(view -> {
-      mDatabaseRealm.add(item);
+    holder.behindWrapperLayout.setOnClickListener(view -> {
+      databaseRealm.add(item);
       items.remove(item);
       notifySpecificItemRemoved(holder.itemView, position);
     });
   }
 
   /**
-   * Item count 반환
+   * modified by ggikko on 16. 8. 23.. Item count 반환
    */
   @Override
   public int getItemCount() {
@@ -86,7 +91,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
   }
 
   /**
-   * Item refresh & view rendering again
+   * modified by ggikko on 16. 8. 23.. Item refresh & view rendering again
    */
   @Override
   public void refresh() {
@@ -94,7 +99,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
   }
 
   /**
-   * remove specific item & refresh view
+   * modified by ggikko on 16. 8. 23.. remove specific item & refresh view
    */
   @Override
   public void notifySpecificItemRemoved(View itemView, int position) {
@@ -103,7 +108,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
   }
 
   /**
-   * item add
+   * modified by ggikko on 16. 8. 23.. item add
    */
   @Override
   public void add(ImageSearchResponse imageSearchResponse) {
@@ -111,7 +116,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
   }
 
   /**
-   * item clear
+   * modified by ggikko on 16. 8. 23.. item clear
    */
   @Override
   public void clear() {
@@ -123,18 +128,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @BindView(R.id.iv_item_search_result_thumb)
     ImageView ivThumbnail;
     @BindView(R.id.search_swipe_wrapper)
-    SwipeLayout search_swipe_wrapper;
+    SwipeLayout swipeWrapperLayout;
     @BindView(R.id.search_behind_wrapper)
-    RelativeLayout search_behind_wrapper;
+    RelativeLayout behindWrapperLayout;
     @BindView(R.id.search_surface_wrapper)
-    LinearLayout search_surface_wrapper;
+    LinearLayout surfaceWrapperLayout;
 
     @BindView(R.id.search_title)
-    TextView search_title;
+    TextView title;
     @BindView(R.id.search_height)
-    TextView search_height;
+    TextView height;
     @BindView(R.id.search_width)
-    TextView search_width;
+    TextView width;
 
     public SearchViewHolder(View itemView) {
       super(itemView);
@@ -143,6 +148,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
   }
 
   /**
+   * modified by ggikko on 16. 8. 23..
    * fromHTML drprecated -> OS Version마다 분기태움
    */
   public static Spanned fromHtml(String source) {
