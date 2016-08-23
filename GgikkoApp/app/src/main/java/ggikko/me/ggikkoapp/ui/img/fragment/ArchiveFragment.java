@@ -4,6 +4,7 @@ package ggikko.me.ggikkoapp.ui.img.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -110,6 +111,11 @@ public class ArchiveFragment extends InjectionFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mDebugLog.d("onDestroyView");
+        if (getChildFragmentManager().getFragments() != null) {
+            for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                getChildFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+            }
+        }
     }
 
     @Override
@@ -143,4 +149,5 @@ public class ArchiveFragment extends InjectionFragment {
     public void refresh() {
         if(mArchiveAdapter!=null)mArchiveAdapter.refresh();
     }
+
 }

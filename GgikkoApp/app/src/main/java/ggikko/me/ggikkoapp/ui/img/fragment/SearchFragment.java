@@ -129,6 +129,11 @@ public class SearchFragment extends InjectionFragment implements SearchViewInter
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (getChildFragmentManager().getFragments() != null) {
+            for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                getChildFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+            }
+        }
         mDebugLog.d("onDestroyView");
     }
 
