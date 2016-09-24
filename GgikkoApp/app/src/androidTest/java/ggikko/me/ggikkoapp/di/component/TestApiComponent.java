@@ -7,7 +7,6 @@ package ggikko.me.ggikkoapp.di.component;
 import dagger.Component;
 import ggikko.me.ggikkoapp.di.module.TestApiModule;
 import ggikko.me.ggikkoapp.di.qualifier.TestPerActivity;
-import ggikko.me.ggikkoapp.service.TestImageSearchService;
 
 /**
  * API Component
@@ -16,5 +15,5 @@ import ggikko.me.ggikkoapp.service.TestImageSearchService;
 @Component(modules = TestApiModule.class, dependencies = TestNetworkComponent.class)
 public interface TestApiComponent {
 
-    void inject(TestImageSearchService testImageSearchService);
+//    void inject(TestImageSearchService testImageSearchService);
 }

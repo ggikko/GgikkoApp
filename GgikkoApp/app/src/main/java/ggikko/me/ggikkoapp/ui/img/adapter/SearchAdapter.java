@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +77,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     });
 
     holder.behindWrapperLayout.setOnClickListener(view -> {
+      long nextIndex = databaseRealm.getMaxIndex(Item.class) + 1;
+      item.setId(nextIndex);
       databaseRealm.add(item);
       items.remove(item);
-      notifySpecificItemRemoved(holder.itemView, position);
+      refresh();
     });
   }
 

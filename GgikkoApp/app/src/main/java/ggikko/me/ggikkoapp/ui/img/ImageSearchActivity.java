@@ -57,44 +57,6 @@ public class ImageSearchActivity extends InjectionActivity {
     toolbarSetting();
     //tab pager
     setupTabs();
-
-    mDebugLog.d("onCreate");
-  }
-
-  @Override
-  protected void onStart() {
-    super.onStart();
-    mDebugLog.d("onStart");
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    mDebugLog.d("onResume");
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    mDebugLog.d("onPause");
-  }
-
-  @Override
-  protected void onStop() {
-    super.onStop();
-    mDebugLog.d("onStop");
-  }
-
-  @Override
-  protected void onRestart() {
-    super.onRestart();
-    mDebugLog.d("onRestart");
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    mDebugLog.d("onDestroy");
   }
 
   /**

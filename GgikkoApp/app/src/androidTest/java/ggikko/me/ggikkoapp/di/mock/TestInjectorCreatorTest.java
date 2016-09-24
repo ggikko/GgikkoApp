@@ -1,15 +1,15 @@
 package ggikko.me.ggikkoapp.di.mock;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Test;
 
 import java.lang.reflect.Type;
 import java.util.Map;
 
 import ggikko.me.ggikkoapp.ui.img.adapter.SearchAdapter;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by ggikko on 2016. 8. 17..

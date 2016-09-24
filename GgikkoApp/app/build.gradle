@@ -94,14 +94,17 @@ dependencies {
     //     - https://github.com/square/assertj-android
 
     // JUnit4 Rules
-    testApt "com.google.dagger:dagger-compiler:${dagger2Version}"
-    testCompile "com.annimon:stream:${streamapiVersion}"
-    testCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
+//    testApt "com.google.dagger:dagger-compiler:${dagger2Version}"
+//    testCompile "com.annimon:stream:${streamapiVersion}"
+//    testCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
+//    testCompile 'junit:junit:4.12'
+//    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+//    testCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
 
     // Android JUnit Runner
+    androidTestApt "com.google.dagger:dagger-compiler:${dagger2Version}"
+    androidTestCompile "com.annimon:stream:${streamapiVersion}"
+//    androidTestCompile "com.squareup.assertj:assertj-android:${assertjVersion}"
     androidTestCompile 'com.android.support:support-annotations:24.0.0'
     androidTestCompile "com.android.support.test:runner:${testRunnerVersion}"
     androidTestCompile "com.android.support.test:rules:${testRunnerVersion}"
@@ -110,6 +113,4 @@ dependencies {
     androidTestCompile "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}"
     androidTestCompile "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}"
     androidTestCompile "org.hamcrest:hamcrest-library:${hamcrestVersion}"
-
-
 }

@@ -16,6 +16,9 @@ import lombok.Setter;
 @Setter
 public class Item extends RealmObject {
 
+  @PrimaryKey
+  Long id;
+
   @SerializedName("pubDate")
   @Expose
   public String pubDate;

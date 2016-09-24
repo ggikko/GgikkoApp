@@ -1,15 +1,14 @@
 package ggikko.me.ggikkoapp.di.mock;
 
+import static org.mockito.Mockito.mock;
+
 import android.support.annotation.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by ggikko on 2016. 8. 17..

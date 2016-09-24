@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,11 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
 
     //row -> realm save
     holder.searchBehindWrapperLayout.setOnClickListener(
-        view -> databaseRealm.deleteFromArchive(holder.itemView, position, this));
+        view -> {
+          Long id = items.get(position).getId();
+          databaseRealm.deleteFromArchive(Item.class, id);
+          notifySpecificItemRemoved(holder.itemView, position);
+        });
   }
 
   /**
@@ -100,7 +105,7 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
    */
   @Override
   public void refresh() {
-    List<Item> savedItems = databaseRealm.findAll(Item.class);
+    List<Item> savedItems = databaseRealm.findAll(Item.class, "id");
     items = savedItems;
     notifyDataSetChanged();
   }
@@ -110,8 +115,8 @@ public class ArchiveAdapter extends RecyclerView.Adapter<ArchiveAdapter.ArchiveV
    */
   @Override
   public void notifySpecificItemRemoved(View itemView, int position) {
-    notifyItemRemoved(position);
-    itemView.postDelayed(() -> notifyItemRangeChanged(position, getItemCount()), 200);
+    refresh();
+//    itemView.postDelayed(() -> notifyItemRangeChanged(position, getItemCount()), 200);
   }
 
   static class ArchiveViewHolder extends RecyclerView.ViewHolder {
